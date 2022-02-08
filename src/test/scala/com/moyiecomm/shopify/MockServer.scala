@@ -1,14 +1,16 @@
 package com.moyiecomm.shopify
 
 import com.github.tomakehurst.wiremock.WireMockServer
-import com.github.tomakehurst.wiremock.core.WireMockConfiguration.options
-import org.scalatest.{BeforeAndAfterAll, BeforeAndAfterEach, Suite}
 import com.github.tomakehurst.wiremock.client.WireMock._
+import com.github.tomakehurst.wiremock.core.WireMockConfiguration.options
+import org.scalatest.BeforeAndAfterAll
+import org.scalatest.BeforeAndAfterEach
+import org.scalatest.Suite
 
 trait MockServer extends BeforeAndAfterAll with BeforeAndAfterEach { self: Suite =>
 
-  var wireMockServer: WireMockServer = _
   val port                           = 5089
+  val wireMockServer: WireMockServer = new WireMockServer(options().port(port))
 
   override def beforeEach(): Unit = {
     super.beforeEach()
@@ -22,7 +24,6 @@ trait MockServer extends BeforeAndAfterAll with BeforeAndAfterEach { self: Suite
 
   override def beforeAll(): Unit = {
     super.beforeAll()
-    wireMockServer = new WireMockServer(options().port(port))
     wireMockServer.start()
     configureFor(port)
   }

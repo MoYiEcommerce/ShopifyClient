@@ -1,11 +1,14 @@
 package com.moyiecomm.shopify.api
 
+import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
+
+import scala.util.Try
+
 import io.circe.Decoder
 import io.circe.generic.extras.Configuration
-
-import java.time.{LocalDateTime, ZoneId, ZonedDateTime}
-import java.time.format.DateTimeFormatter
-import scala.util.Try
 
 trait CirceConfig {
   private val formatter                    = DateTimeFormatter.ISO_OFFSET_DATE_TIME

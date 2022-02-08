@@ -1,7 +1,6 @@
 package com.moyiecomm.shopify.api.salesChannels
 
-import com.moyiecomm.shopify.api.products.ProductOption
-import com.moyiecomm.shopify.api.products.ProductVariant
+import com.moyiecomm.shopify.api.products.models.{ProductOption, ProductVariant}
 
 case class ProductListing(
     productId: Long,

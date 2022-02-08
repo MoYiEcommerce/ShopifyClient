@@ -4,14 +4,13 @@ import com.moyiecomm.shopify.request.ApiRequest.EmptyBody
 import com.moyiecomm.shopify.request.ApiRequest.Entity
 import io.circe
 import io.circe.Decoder
-
 import sttp.client3._
-import sttp.model._
 import sttp.client3.circe.asJson
 import sttp.model.Method
+import sttp.model._
 
 abstract class ShopifyRequest[Req, Rep]()(implicit
-    RequestBodySerializer: BodySerializer[Req],
+    requestBodySerializer: BodySerializer[Req],
     responseBodyDecoder: Decoder[Rep]
 ) extends ApiRequest {
 
