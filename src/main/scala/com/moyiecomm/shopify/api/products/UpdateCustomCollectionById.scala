@@ -8,8 +8,14 @@ import sttp.client3.circe._
 import Collection.{customCollectionEncoder, collectionDecoder}
 
 case class UpdateCustomCollectionById(customCollection: Collection)(implicit val apiConfig: ApiConfig)
-    extends UpsertItemRequest[Collection, Collection](customCollection) {
+    extends UpsertItemRequest[Collection, Collection](customCollection)(
+      circeBodySerializer(customCollectionEncoder),
+      collectionDecoder
+    ) {
   override def method: Method = Method.PUT
 
-  override def path: String = s"/custom_collections/${customCollection.id}.json"
+  override def path: String = {
+    require(customCollection.id.nonEmpty, "custom collection id [must not] be None")
+    s"/custom_collections/${customCollection.id.getOrElse("")}.json"
+  }
 }

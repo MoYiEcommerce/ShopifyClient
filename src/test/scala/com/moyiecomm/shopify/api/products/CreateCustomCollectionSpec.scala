@@ -8,8 +8,9 @@ import com.github.tomakehurst.wiremock.client.WireMock._
 class CreateCustomCollectionSpec extends ApiSpec {
 
   it should behave like correctShopifyRequestBehaviour(
-    apiRequest =
-      CreateCustomCollection(Collection(None, title = "testCollection", None, None, None, None, None, None, None, None)),
+    apiRequest = CreateCustomCollection(
+      Collection(None, title = "testCollection", None, None, None, None, None, None, None, None, None, None)
+    ),
     expectedUrl = s"http://localhost:$port/admin/api/2022-01/custom_collections.json",
     expectedMethod = Method.POST,
     expectedRequestBody = Some("""{"custom_collection":{"title":"testCollection"}}"""),
@@ -27,6 +28,7 @@ class CreateCustomCollectionSpec extends ApiSpec {
                       |    "handle": "testCollection",
                       |    "title": "testCollection",
                       |    "updated_at": "2022-02-04T14:12:17-05:00",
+                      |    "published": false,
                       |    "body_html": null,
                       |    "published_at": "2022-02-03T17:12:17-05:00",
                       |    "sort_order": "best-selling",
@@ -46,7 +48,9 @@ class CreateCustomCollectionSpec extends ApiSpec {
         handle = Some("testCollection"),
         image = None,
         publishedScope = Some("web"),
+        published = Some(false),
         sortOrder = Some("best-selling"),
+        productsCount = None,
         templateSuffix = None,
         publishedAt = "2022-02-03T17:12:17-05:00",
         updatedAt = "2022-02-04T14:12:17-05:00"

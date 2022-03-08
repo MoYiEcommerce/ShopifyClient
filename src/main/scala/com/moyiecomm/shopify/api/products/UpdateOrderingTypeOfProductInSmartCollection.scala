@@ -7,7 +7,7 @@ import sttp.client3._
 import io.circe.generic.auto._
 import sttp.client3.circe._
 
-class UpdateOrderingTypeOfProductInSmartCollection(smartCollectionId: Long, productIdList: List[Long])(implicit
+case class UpdateOrderingTypeOfProductInSmartCollection(smartCollectionId: Long, productIdList: List[Long])(implicit
     val apiConfig: ApiConfig
 ) extends ShopifyRequest[EmptyBody.type, IgnoreResponse.type] {
   override def method: Method = Method.PUT

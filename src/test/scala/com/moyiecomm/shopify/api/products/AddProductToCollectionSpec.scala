@@ -8,7 +8,7 @@ import sttp.model.{Method, StatusCode}
 
 class AddProductToCollectionSpec extends ApiSpec {
 
-  "AddProductToCollection" should behave like correctShopifyRequestBehaviour(
+  it should behave like correctShopifyRequestBehaviour(
     apiRequest = AddProductToCollection(ProductToCollect(921728736, 841564295)),
     expectedUrl = s"http://localhost:$port/admin/api/2022-01/collects.json",
     expectedMethod = Method.POST,

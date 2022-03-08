@@ -3,15 +3,12 @@ package com.moyiecomm.shopify.api
 import com.github.tomakehurst.wiremock.client.MappingBuilder
 import com.github.tomakehurst.wiremock.client.WireMock._
 
-import java.time.LocalDateTime
-import java.time.ZoneId
 import java.time.ZonedDateTime
-import java.time.format.DateTimeFormatter
 import scala.concurrent.Future
 import scala.language.implicitConversions
 import com.moyiecomm.shopify.MockServer
 import com.moyiecomm.shopify.UnitSpec
-import com.moyiecomm.shopify.request.{ApiConfig, ApiRequest, ShopifyRequest}
+import com.moyiecomm.shopify.request.{ApiConfig, ShopifyRequest}
 import sttp.client3.SttpBackend
 import sttp.client3.asynchttpclient.future.AsyncHttpClientFutureBackend
 import sttp.model.{Method, StatusCode}
@@ -27,8 +24,7 @@ trait ApiSpec extends UnitSpec with MockServer {
   implicit val httpBackend: SttpBackend[Future, Any] = AsyncHttpClientFutureBackend()
 
   implicit def timeStringToZonedDateTime(time: String): Option[ZonedDateTime] = {
-    val formatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME
-    Option(LocalDateTime.parse(time, formatter).atZone(ZoneId.of("Europe/Amsterdam")))
+    Option(ZonedDateTime.parse(time))
   }
 
   def correctShopifyRequestBehaviour[Req, Rep](

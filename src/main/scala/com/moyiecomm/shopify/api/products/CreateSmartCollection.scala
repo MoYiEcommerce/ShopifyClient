@@ -8,7 +8,10 @@ import sttp.client3.circe._
 import SmartCollection.{smartCollectionEncoder, smartCollectionDecoder}
 
 case class CreateSmartCollection(smartCollection: SmartCollection)(implicit val apiConfig: ApiConfig)
-    extends UpsertItemRequest[SmartCollection, SmartCollection](smartCollection) {
+    extends UpsertItemRequest[SmartCollection, SmartCollection](smartCollection)(
+      circeBodySerializer(smartCollectionEncoder),
+      smartCollectionDecoder
+    ) {
   override def method: Method = Method.POST
-  override def path: String   = "/custom_collections.json"
+  override def path: String   = "/smart_collections.json"
 }

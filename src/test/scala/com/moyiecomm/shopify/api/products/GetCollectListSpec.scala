@@ -6,7 +6,7 @@ import com.moyiecomm.shopify.api.products.models.Collect
 import sttp.model.{Method, StatusCode}
 
 class GetCollectListSpec extends ApiSpec {
-  "GetCountOfCollectsSpec" should behave like correctShopifyRequestBehaviour(
+  it should behave like correctShopifyRequestBehaviour(
     apiRequest = GetCollectList(),
     expectedUrl = s"http://localhost:$port/admin/api/2022-01/collects.json",
     expectedMethod = Method.GET,

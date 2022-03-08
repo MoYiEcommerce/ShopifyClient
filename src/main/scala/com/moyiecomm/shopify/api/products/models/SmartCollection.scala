@@ -8,19 +8,21 @@ import io.circe._
 import io.circe.generic.extras.semiauto._
 import io.circe.syntax._
 
+import java.time.ZonedDateTime
+
 case class SmartCollection(
-    bodyHtml: String,
-    handle: String,
-    image: CollectionImage,
-    id: Long,
-    publishedAt: Long,
-    publishedScope: String,
+    id: Option[Long],
+    title: String,
+    bodyHtml: Option[String],
+    handle: Option[String],
+    image: Option[CollectionImage],
+    publishedScope: Option[String],
     rules: List[Rule],
     disjunctive: Boolean,
-    sortOrder: String,
-    templateSuffix: String,
-    title: String,
-    updateAt: Long
+    sortOrder: Option[String],
+    templateSuffix: Option[String],
+    publishedAt: Option[ZonedDateTime],
+    updatedAt: Option[ZonedDateTime]
 )
 
 object SmartCollection extends CirceConfig {
@@ -29,13 +31,24 @@ object SmartCollection extends CirceConfig {
   implicit val ruleEncoder: Encoder[Rule] = deriveConfiguredEncoder[Rule]
   implicit val ruleDecoder: Decoder[Rule] = deriveConfiguredDecoder[Rule]
 
-  implicit val smartCollectionEncoder: Encoder[SmartCollection] = new Encoder[SmartCollection] {
+  val smartCollectionEncoder: Encoder[SmartCollection] = new Encoder[SmartCollection] {
     override def apply(a: SmartCollection): Json = Json.obj(
-      ("smart_collection", Json.fromJsonObject(a.asJsonObject(deriveConfiguredEncoder)))
+      (
+        "smart_collection",
+        Json.fromJsonObject(a.asJsonObject(deriveConfiguredEncoder)).dropNullValues.dropEmptyValues.dropEmptyString
+      )
     )
   }
 
-  implicit val smartCollectionDecoder: Decoder[SmartCollection] = new Decoder[SmartCollection] {
+  val smartCollectionDecoder: Decoder[SmartCollection] = new Decoder[SmartCollection] {
     override def apply(c: HCursor): Result[SmartCollection] = c.get[SmartCollection]("smart_collection")(deriveConfiguredDecoder)
+  }
+
+  val smartCollectionListDecoder: Decoder[List[SmartCollection]] = {
+    implicit val smartCollectionDecoder: Decoder[SmartCollection] = deriveConfiguredDecoder[SmartCollection]
+    new Decoder[List[SmartCollection]] {
+      override def apply(c: HCursor): Result[List[SmartCollection]] =
+        c.get[List[SmartCollection]]("smart_collections")
+    }
   }
 }

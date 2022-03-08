@@ -1,12 +1,13 @@
-package com.moyiecomm.shopify.api.products.models
+package com.moyiecomm.shopify.api.shared.models
 
 import com.moyiecomm.shopify.api.CirceConfig
-import io.circe.{Decoder, Encoder}
 import io.circe.generic.extras.semiauto._
+import io.circe.{Decoder, Encoder}
 
 case class ProductOption(
     id: Long,
     productId: Long,
+    name: String,
     position: Int,
     values: List[String]
 )

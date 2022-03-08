@@ -1,21 +1,19 @@
 package com.moyiecomm.shopify.api
 
-import java.time.LocalDateTime
-import java.time.ZoneId
-import java.time.ZonedDateTime
-import java.time.format.DateTimeFormatter
-
-import scala.util.Try
-
-import io.circe.Decoder
+import io.circe.Json
 import io.circe.generic.extras.Configuration
 
 trait CirceConfig {
-  private val formatter                    = DateTimeFormatter.ISO_OFFSET_DATE_TIME
   implicit val customConfig: Configuration = Configuration.default.withSnakeCaseMemberNames
 
-  // zone id should configurable
-  implicit val timeStringToEpocMilli: Decoder[ZonedDateTime] = Decoder.decodeString.emapTry { timeString =>
-    Try(LocalDateTime.parse(timeString, formatter).atZone(ZoneId.of("Europe/Amsterdam")))
+  implicit class ExtendedJson(jsObject: Json) {
+    def dropEmptyString: Json = jsObject.mapObject(_.filter { case (_, v) =>
+      v match {
+        case v if v.isString => v.asString.exists(_.nonEmpty)
+        case _               => true
+      }
+    })
+
+    def dropField(filedName: String): Json = jsObject.mapObject(_.filter { case (k, _) => k != filedName })
   }
 }

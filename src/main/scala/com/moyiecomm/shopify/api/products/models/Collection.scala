@@ -16,33 +16,48 @@ case class Collection(
     handle: Option[String],
     image: Option[CollectionImage],
     publishedScope: Option[String],
+    published: Option[Boolean],
     sortOrder: Option[String],
     templateSuffix: Option[String],
+    productsCount: Option[Int],
     publishedAt: Option[ZonedDateTime],
     updatedAt: Option[ZonedDateTime]
 )
 
 object Collection extends CirceConfig {
   case class CollectionImage(
-      attachment: Array[Byte],
+      attachment: Option[Array[Byte]],
       src: String,
       alt: Option[String],
-      createAt: Option[ZonedDateTime],
+      createdAt: Option[ZonedDateTime],
       width: Int,
       height: Int
   )
 
   implicit val collectionImageEncoder: Encoder[CollectionImage] = deriveConfiguredEncoder[CollectionImage]
-
   implicit val collectionImageDecoder: Decoder[CollectionImage] = deriveConfiguredDecoder[CollectionImage]
 
-  implicit val customCollectionEncoder: Encoder[Collection] = new Encoder[Collection] {
+  val customCollectionEncoder: Encoder[Collection] = new Encoder[Collection] {
+    implicit val collectEncoder: Encoder[Collect] = deriveConfiguredEncoder[Collect]
     override def apply(a: Collection): Json = Json.obj(
-      ("custom_collection", Json.fromJsonObject(a.asJsonObject(deriveConfiguredEncoder)).dropNullValues)
+      (
+        "custom_collection",
+        Json.fromJsonObject(a.asJsonObject(deriveConfiguredEncoder[Collection])).dropNullValues.dropEmptyValues
+      )
     )
   }
+  val customCollectionListDecoder: Decoder[List[Collection]] = {
+    implicit val collectDecoder: Decoder[Collect]       = deriveConfiguredDecoder[Collect]
+    implicit val collectionDecoder: Decoder[Collection] = deriveConfiguredDecoder[Collection]
+    new Decoder[List[Collection]] {
+      override def apply(c: HCursor): Result[List[Collection]] =
+        c.get[List[Collection]]("custom_collections")
+    }
+  }
 
-  implicit val collectionDecoder: Decoder[Collection] = new Decoder[Collection] {
+  val collectionDecoder: Decoder[Collection] = new Decoder[Collection] {
+    implicit val collectDecoder: Decoder[Collect]                 = deriveConfiguredDecoder[Collect]
+    implicit val collectionImageDecoder: Decoder[CollectionImage] = deriveConfiguredDecoder[CollectionImage]
     override def apply(c: HCursor): Result[Collection] = {
       Seq(
         c.downField("collection").focus,

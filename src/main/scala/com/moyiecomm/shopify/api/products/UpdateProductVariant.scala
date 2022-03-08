@@ -7,9 +7,15 @@ import sttp.model.Method
 import sttp.client3.circe._
 import ProductVariant.{productVariantEncoder, productVariantDecoder}
 
-case class UpdateProductVariant(productId: Long, productVariant: ProductVariant)(implicit val apiConfig: ApiConfig)
-    extends UpsertItemRequest[ProductVariant, ProductVariant](productVariant) {
+case class UpdateProductVariant(productVariant: ProductVariant)(implicit val apiConfig: ApiConfig)
+    extends UpsertItemRequest[ProductVariant, ProductVariant](productVariant)(
+      circeBodySerializer(productVariantEncoder),
+      productVariantDecoder
+    ) {
   override def method: Method = Method.PUT
 
-  override def path: String = s"/products/$productId/variants.json"
+  override def path: String = {
+    require(productVariant.id.nonEmpty, "Product Variant id must not be empty")
+    s"/variants/${productVariant.id.getOrElse("")}.json"
+  }
 }
