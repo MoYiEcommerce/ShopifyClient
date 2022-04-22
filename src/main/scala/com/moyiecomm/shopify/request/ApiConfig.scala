@@ -8,7 +8,8 @@ case class ApiConfig(
     shopUrl: String,
     adminApiVersion: String
 ) {
-  val pathPrefix: String = s"/admin/api/$adminApiVersion"
+  val apiPathPrefix: String   = s"/admin/api/$adminApiVersion"
+  val adminPathPrefix: String = "/admin"
 }
 
 object ApiConfig {

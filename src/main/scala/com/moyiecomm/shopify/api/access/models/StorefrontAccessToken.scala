@@ -6,23 +6,36 @@ import io.circe.generic.extras.semiauto._
 import io.circe.syntax._
 import io.circe.{Decoder, Encoder, HCursor, Json}
 
+import java.time.ZonedDateTime
+
 case class StorefrontAccessToken(
-    id: Long,
-    accessToken: String,
-    accessScope: String,
-    createdAt: Long,
+    id: Option[Long],
+    accessToken: Option[String],
+    accessScope: Option[String],
+    createdAt: Option[ZonedDateTime],
     title: String
 )
 
 object StorefrontAccessToken extends CirceConfig {
-  implicit val storefrontAccessTokenEncoder: Encoder[StorefrontAccessToken] = new Encoder[StorefrontAccessToken] {
+  val storefrontAccessTokenEncoder: Encoder[StorefrontAccessToken] = new Encoder[StorefrontAccessToken] {
     override def apply(a: StorefrontAccessToken): Json = Json.obj(
-      ("collect", Json.fromJsonObject(a.asJsonObject(deriveConfiguredEncoder)))
+      (
+        "storefront_access_token",
+        Json.fromJsonObject(a.asJsonObject(deriveConfiguredEncoder)).dropNullValues.dropEmptyValues.dropEmptyString
+      )
     )
   }
 
-  implicit val storefrontAccessTokenDecoder: Decoder[StorefrontAccessToken] = new Decoder[StorefrontAccessToken] {
+  val storefrontAccessTokenDecoder: Decoder[StorefrontAccessToken] = new Decoder[StorefrontAccessToken] {
     override def apply(c: HCursor): Result[StorefrontAccessToken] =
       c.get[StorefrontAccessToken]("storefront_access_token")(deriveConfiguredDecoder)
+  }
+
+  val storefrontAccessTokenListDecoder = {
+    implicit val storefrontAccessTokenDecoder: Decoder[StorefrontAccessToken] = deriveConfiguredDecoder[StorefrontAccessToken]
+    new Decoder[List[StorefrontAccessToken]] {
+      override def apply(c: HCursor): Result[List[StorefrontAccessToken]] =
+        c.get[List[StorefrontAccessToken]]("storefront_access_tokens")
+    }
   }
 }

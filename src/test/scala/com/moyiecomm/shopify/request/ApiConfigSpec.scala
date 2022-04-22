@@ -7,6 +7,6 @@ class ApiConfigSpec extends UnitSpec {
   it should "load value from config file" in {
     val apiConfig = ApiConfig.load(ConfigFactory.load().getConfig("shopify"))
 
-    apiConfig.pathPrefix should be("/admin/api/admin_api_version")
+    apiConfig.apiPathPrefix should be("/admin/api/admin_api_version")
   }
 }

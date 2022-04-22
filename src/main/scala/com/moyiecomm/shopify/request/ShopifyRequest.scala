@@ -14,9 +14,10 @@ abstract class ShopifyRequest[Req, Rep]()(implicit
     responseBodyDecoder: Decoder[Rep]
 ) extends ApiRequest {
 
+  def fullPath = s"http://${apiConfig.shopUrl}${apiConfig.apiPathPrefix}$path"
+
   val request = {
     val uri: Uri = {
-      val fullPath = s"http://${apiConfig.shopUrl}${apiConfig.pathPrefix}$path"
       uri"$fullPath"
     }
 

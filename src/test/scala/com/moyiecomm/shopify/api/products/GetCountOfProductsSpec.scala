@@ -1,6 +1,6 @@
 package com.moyiecomm.shopify.api.products
 
-import com.github.tomakehurst.wiremock.client.WireMock.{aResponse, get}
+import com.github.tomakehurst.wiremock.client.WireMock._
 import com.moyiecomm.shopify.api.ApiSpec
 import com.moyiecomm.shopify.api.shared.CountOfRequestedItems
 import sttp.model.{Method, StatusCode}
