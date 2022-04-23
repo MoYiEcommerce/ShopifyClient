@@ -6,23 +6,32 @@ import io.circe.{Decoder, Encoder, HCursor, Json}
 import io.circe.generic.extras.semiauto._
 import io.circe.syntax._
 
+import java.time.ZonedDateTime
+
 case class Report(
-    category: String,
-    id: Long,
+    id: Option[Long],
+    category: Option[String],
     name: String,
     shopifyQl: String,
-    updateAt: Long
+    updatedAt: Option[ZonedDateTime]
 )
 
 object Report extends CirceConfig {
-  implicit val reportEncoder: Encoder[Report] = new Encoder[Report] {
+  val reportEncoder: Encoder[Report] = new Encoder[Report] {
     override def apply(a: Report): Json = Json.obj(
-      ("report", Json.fromJsonObject(a.asJsonObject(deriveConfiguredEncoder)))
+      ("report", Json.fromJsonObject(a.asJsonObject(deriveConfiguredEncoder)).dropNullValues.dropEmptyValues.dropEmptyString)
     )
   }
 
-  implicit val reportDecoder: Decoder[Report] = new Decoder[Report] {
+  val reportDecoder: Decoder[Report] = new Decoder[Report] {
     override def apply(c: HCursor): Result[Report] =
       c.get[Report]("report")(deriveConfiguredDecoder)
+  }
+
+  val reportListDecoder: Decoder[List[Report]] = {
+    implicit val reportDecoder: Decoder[Report] = deriveConfiguredDecoder[Report]
+    new Decoder[List[Report]] {
+      override def apply(c: HCursor): Result[List[Report]] = c.get[List[Report]]("reports")
+    }
   }
 }
