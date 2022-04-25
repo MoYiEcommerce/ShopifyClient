@@ -35,10 +35,9 @@ abstract class ShopifyRequest[Req, Rep]()(implicit
         requestWithMethod
     }
 
-    requestWithBody
-      .response(asJson[Rep])
-      .auth
+    requestWithBody.auth
       .basic(apiConfig.apiKeyId, apiConfig.apiKeySecret)
+      .response(asJson[Rep])
   }
 
   def response[F[_], P]()(implicit

@@ -1,32 +1,49 @@
 package com.moyiecomm.shopify.api.billing.models
 
 import com.moyiecomm.shopify.api.CirceConfig
+import com.moyiecomm.shopify.api.shared.models.Status
 import io.circe.Decoder.Result
-import io.circe.{Decoder, Encoder, HCursor, Json}
+import io.circe._
 import io.circe.generic.extras.semiauto._
 import io.circe.syntax._
 
+import java.time.ZonedDateTime
+
 case class ApplicationCharge(
-    confirmationUrl: String,
-    createAt: Long,
-    id: Long,
+    confirmationUrl: Option[String],
+    createdAt: Option[ZonedDateTime],
+    id: Option[Long],
+    apiClientId: Option[Long],
     name: String,
-    price: String,
-    returnUrl: String,
-    status: String,
-    test: Boolean,
-    updateAt: Long
+    price: Double,
+    returnUrl: Option[String],
+    status: Option[Status],
+    chargeType: Option[String],
+    decoratedReturnUrl: Option[String],
+    test: Option[Boolean],
+    updatedAt: Option[ZonedDateTime]
 )
 
 object ApplicationCharge extends CirceConfig {
-  implicit val applicationChargeEncoder: Encoder[ApplicationCharge] = new Encoder[ApplicationCharge] {
+
+  val applicationChargeEncoder: Encoder[ApplicationCharge] = new Encoder[ApplicationCharge] {
     override def apply(a: ApplicationCharge): Json = Json.obj(
-      ("application_charge", Json.fromJsonObject(a.asJsonObject(deriveConfiguredEncoder)))
+      (
+        "application_charge",
+        Json.fromJsonObject(a.asJsonObject(deriveConfiguredEncoder)).dropNullValues.dropEmptyValues.dropEmptyString
+      )
     )
   }
 
-  implicit val applicationChargeDecoder: Decoder[ApplicationCharge] = new Decoder[ApplicationCharge] {
+  val applicationChargeDecoder: Decoder[ApplicationCharge] = new Decoder[ApplicationCharge] {
     override def apply(c: HCursor): Result[ApplicationCharge] =
       c.get[ApplicationCharge]("application_charge")(deriveConfiguredDecoder)
+  }
+
+  val applicationChargeListDecoder: Decoder[List[ApplicationCharge]] = {
+    implicit val applicationChargeDecoder: Decoder[ApplicationCharge] = deriveConfiguredDecoder[ApplicationCharge]
+    new Decoder[List[ApplicationCharge]] {
+      override def apply(c: HCursor): Result[List[ApplicationCharge]] = c.get[List[ApplicationCharge]]("application_charges")
+    }
   }
 }

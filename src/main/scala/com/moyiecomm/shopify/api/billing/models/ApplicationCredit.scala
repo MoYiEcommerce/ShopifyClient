@@ -7,21 +7,31 @@ import io.circe.{Decoder, Encoder, HCursor, Json}
 import io.circe.syntax._
 
 case class ApplicationCredit(
-    description: String,
-    id: Long,
-    amount: Int,
-    test: Boolean
+    description: Option[String],
+    id: Option[Long],
+    amount: Double,
+    test: Option[Boolean]
 )
 
 object ApplicationCredit extends CirceConfig {
-  implicit val applicationCreditEncoder: Encoder[ApplicationCredit] = new Encoder[ApplicationCredit] {
+  val applicationCreditEncoder: Encoder[ApplicationCredit] = new Encoder[ApplicationCredit] {
     override def apply(a: ApplicationCredit): Json = Json.obj(
-      ("application_credit", Json.fromJsonObject(a.asJsonObject(deriveConfiguredEncoder)))
+      (
+        "application_credit",
+        Json.fromJsonObject(a.asJsonObject(deriveConfiguredEncoder)).dropNullValues.dropEmptyValues.dropEmptyString
+      )
     )
   }
 
-  implicit val applicationCreditDecoder: Decoder[ApplicationCredit] = new Decoder[ApplicationCredit] {
+  val applicationCreditDecoder: Decoder[ApplicationCredit] = new Decoder[ApplicationCredit] {
     override def apply(c: HCursor): Result[ApplicationCredit] =
       c.get[ApplicationCredit]("application_credit")(deriveConfiguredDecoder)
+  }
+
+  val applicationCreditListDecoder: Decoder[List[ApplicationCredit]] = {
+    implicit val applicationChargeDecoder: Decoder[ApplicationCredit] = deriveConfiguredDecoder[ApplicationCredit]
+    new Decoder[List[ApplicationCredit]] {
+      override def apply(c: HCursor): Result[List[ApplicationCredit]] = c.get[List[ApplicationCredit]]("application_credits")
+    }
   }
 }

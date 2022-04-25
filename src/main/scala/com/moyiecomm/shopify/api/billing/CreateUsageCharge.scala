@@ -5,11 +5,17 @@ import com.moyiecomm.shopify.api.shared.UpsertItemRequest
 import com.moyiecomm.shopify.request.ApiConfig
 import sttp.model.Method
 import sttp.client3.circe._
-import UsageCharge._
+import UsageCharge.{usageChargeDecoder, usageChargeEncoder}
 
-case class CreateUsageCharge(recurringApplicationChargeId: Long, usageCharge: UsageCharge)(implicit val apiConfig: ApiConfig)
-    extends UpsertItemRequest[UsageCharge, UsageCharge](usageCharge) {
+case class CreateUsageCharge(usageCharge: UsageCharge)(implicit val apiConfig: ApiConfig)
+    extends UpsertItemRequest[UsageCharge, UsageCharge](usageCharge)(
+      circeBodySerializer(usageChargeEncoder),
+      usageChargeDecoder
+    ) {
   override def method: Method = Method.POST
 
-  override def path: String = s"/recurring_application_charges/$recurringApplicationChargeId/usage_charges.json"
+  override def path: String = {
+    require(usageCharge.recurringApplicationChargeId.nonEmpty, "recurringApplicationChargeId can't be empty")
+    s"/recurring_application_charges/${usageCharge.recurringApplicationChargeId.getOrElse("")}/usage_charges.json"
+  }
 }

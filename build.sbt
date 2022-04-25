@@ -5,7 +5,7 @@ lazy val root = (project in file("."))
       List(
         scalaVersion                                   := "2.13.7",
         version                                        := "0.1.0-SNAPSHOT",
-        organization                                   := "com.example",
+        organization                                   := "com.moyiecomm",
         semanticdbEnabled                              := true,
         semanticdbVersion                              := scalafixSemanticdb.revision,
         scalafixDependencies += "com.github.liancheng" %% "organize-imports" % "0.6.0"
@@ -21,7 +21,7 @@ lazy val root = (project in file("."))
       "com.github.tomakehurst"         % "wiremock"                         % "2.27.2" % Test,
       "com.softwaremill.sttp.client3" %% "async-http-client-backend-future" % "3.4.1"  % Test
     ),
-    scalacOptions += "-Wunused",
+//    scalacOptions += "-Wunused",
     Test / parallelExecution := false
   )
 
