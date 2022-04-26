@@ -4,7 +4,6 @@
     <profile name="sbt 1" modules="shopifyclient_608" />
     <profile name="sbt 2" modules="ShopifyClient">
       <parameters>
-        <parameter value="-Wunused" />
         <parameter value="-Yrangepos" />
         <parameter value="-P:semanticdb:targetroot:/home/yue/Projects/MoYiEcommerce/shopifyclient/target/scala-2.13/meta" />
       </parameters>

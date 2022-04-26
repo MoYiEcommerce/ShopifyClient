@@ -1,7 +1,6 @@
 package com.moyiecomm.shopify.api.orders
 
-import com.moyiecomm.shopify.api.customers.Address
-import com.moyiecomm.shopify.api.customers.Customer
+import com.moyiecomm.shopify.api.customers.models.{Address, Customer}
 import com.moyiecomm.shopify.api.discounts.DiscountCode
 
 case class AbandonedCheckouts(

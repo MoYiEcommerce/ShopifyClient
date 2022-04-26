@@ -1,6 +1,6 @@
 package com.moyiecomm.shopify.api.shippingFulfillment
 
-import com.moyiecomm.shopify.api.customers.Address
+import com.moyiecomm.shopify.api.customers.models.Address
 import com.moyiecomm.shopify.api.orders.LineItem
 import com.moyiecomm.shopify.api.orders.Receipt
 

@@ -1,4 +1,4 @@
-package com.moyiecomm.shopify.api.customers
+package com.moyiecomm.shopify.api.customers.models
 
 case class CustomerSavedSearch(
     createAt: Long,

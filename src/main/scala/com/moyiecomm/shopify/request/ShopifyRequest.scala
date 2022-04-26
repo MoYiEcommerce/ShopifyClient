@@ -16,6 +16,10 @@ abstract class ShopifyRequest[Req, Rep]()(implicit
 
   def fullPath = s"http://${apiConfig.shopUrl}${apiConfig.apiPathPrefix}$path"
 
+  val uri: Uri = uri"$fullPath"
+
+//  val request1 = basicRequest.method(method, uri)
+
   val request = {
     val uri: Uri = {
       uri"$fullPath"
@@ -32,7 +36,7 @@ abstract class ShopifyRequest[Req, Rep]()(implicit
       case entity: Entity[Req] =>
         requestWithMethod.body(entity.entity)
       case EmptyBody =>
-        requestWithMethod
+        requestWithMethod.body()
     }
 
     requestWithBody.auth
