@@ -20,7 +20,7 @@ abstract class ShopifyRequest[Req, Rep]()(implicit
 
 //  val request1 = basicRequest.method(method, uri)
 
-  val request = {
+  val request: RequestT[Identity, Either[ResponseException[String, circe.Error], Rep], Any] = {
     val uri: Uri = {
       uri"$fullPath"
     }

@@ -1,6 +1,7 @@
 package com.moyiecomm.shopify.api.customers.models
 
 import com.moyiecomm.shopify.api.CirceConfig
+import io.circe.Decoder.Result
 import io.circe.generic.extras.semiauto.deriveConfiguredEncoder
 import io.circe._
 import io.circe.generic.extras.semiauto._
@@ -12,26 +13,45 @@ case class Address(
     address1: String,
     address2: Option[String],
     city: String,
-    province: String,
-    phone: String,
-    zip: String,
-    lastName: Option[String],
-    firstName: Option[String],
-    country: String,
-    countryCode: Option[String],
-    countryName: Option[String],
     company: Option[String],
-    latitude: Option[String],
-    longitude: Option[String],
+    firstName: Option[String],
+    lastName: Option[String],
+    phone: String,
+    province: String,
+    country: String,
+    zip: String,
     name: Option[String],
     provinceCode: Option[String],
+    countryCode: Option[String],
+    countryName: Option[String],
+    latitude: Option[String],
+    longitude: Option[String],
     default: Option[Boolean]
 )
 
 object Address extends CirceConfig {
   val addressEncoder: Encoder[Address] = new Encoder[Address] {
     override def apply(a: Address): Json = Json.obj(
-      ("address", Json.fromJsonObject(a.asJsonObject(deriveConfiguredEncoder)).dropNullValues.dropEmptyValues.dropEmptyString)
+      (
+        "address",
+        Json
+          .fromJsonObject(a.asJsonObject(deriveConfiguredEncoder))
+          .dropNullValues
+          .dropEmptyValues
+          .dropEmptyString
+          .dropField("customer_id")
+      )
     )
+  }
+
+  val addressDecoder: Decoder[Address] = new Decoder[Address] {
+    override def apply(c: HCursor): Result[Address] = c.get[Address]("customer_address")(deriveConfiguredDecoder)
+  }
+
+  val addressListDecoder: Decoder[List[Address]] = {
+    implicit val addressDecoder: Decoder[Address] = deriveConfiguredDecoder[Address]
+    new Decoder[List[Address]] {
+      override def apply(c: HCursor): Result[List[Address]] = c.get[List[Address]]("addresses")
+    }
   }
 }

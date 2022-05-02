@@ -1,7 +1,9 @@
 package com.moyiecomm.shopify.request
 
 import com.moyiecomm.shopify.request.ApiRequest._
-import io.circe.{Encoder, Json}
+import io.circe.Decoder.Result
+import io.circe.{Decoder, Encoder, HCursor, Json}
+import sttp.client3.IgnoreResponse
 import sttp.model.Method
 
 trait ApiRequest {
@@ -20,5 +22,7 @@ object ApiRequest {
     override def apply(a: EmptyBody.type): Json = Json.Null
   }
 
-  Encoder.encodeZonedDateTime
+  val ignoreResponseDecoder: Decoder[IgnoreResponse.type] = new Decoder[IgnoreResponse.type] {
+    override def apply(c: HCursor): Result[IgnoreResponse.type] = Right(IgnoreResponse)
+  }
 }

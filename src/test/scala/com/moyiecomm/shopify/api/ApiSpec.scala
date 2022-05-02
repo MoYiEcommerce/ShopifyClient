@@ -41,7 +41,7 @@ trait ApiSpec extends UnitSpec with MockServer {
       apiRequest.request.method should be(expectedMethod)
       expectedRequestBody match {
         case Some(body) =>
-          apiRequest.request.body.show should be(s"""string: $body""")
+          apiRequest.request.body.show should be(s"""string: $body""") // pattern match on request body type here
         case None =>
           succeed
       }

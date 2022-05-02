@@ -52,7 +52,7 @@ class UpdateCustomerByIdSpec extends ApiSpec {
       )
       .willReturn(
         aResponse()
-          .withStatus(201)
+          .withStatus(200)
           .withBody("""
                       |{
                       |  "customer": {
@@ -129,7 +129,7 @@ class UpdateCustomerByIdSpec extends ApiSpec {
                       |}
                       |""".stripMargin)
       ),
-    expectedStatusCode = StatusCode.Created,
+    expectedStatusCode = StatusCode.Ok,
     expectedResponseBody = Some(
       Customer(
         id = Some(207119551),
