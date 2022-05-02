@@ -19,7 +19,8 @@ lazy val root = (project in file("."))
       "com.typesafe"                   % "config"                           % "1.4.1",
       "org.scalatest"                 %% "scalatest"                        % "3.2.9"  % Test,
       "com.github.tomakehurst"         % "wiremock"                         % "2.27.2" % Test,
-      "com.softwaremill.sttp.client3" %% "async-http-client-backend-future" % "3.4.1"  % Test
+      "com.softwaremill.sttp.client3" %% "async-http-client-backend-future" % "3.4.1"  % Test,
+      "io.circe"                      %% "circe-parser"                     % "0.14.1" % Test
     ),
 //    scalacOptions += "-Wunused",
     Test / parallelExecution := false

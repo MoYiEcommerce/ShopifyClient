@@ -1,6 +1,6 @@
 package com.moyiecomm.shopify.api.billing
 
-import com.github.tomakehurst.wiremock.client.WireMock.{aResponse, equalTo, post}
+import com.github.tomakehurst.wiremock.client.WireMock._
 import com.moyiecomm.shopify.api.ApiSpec
 import com.moyiecomm.shopify.api.billing.models.ApplicationCredit
 import sttp.model.{Method, StatusCode}
@@ -16,7 +16,7 @@ class CreateApplicationCreditSpec extends ApiSpec {
     mapping = post("/admin/api/2022-01/application_credits.json")
       .withBasicAuth("testKeyId", "testKeySecret")
       .withRequestBody(
-        equalTo(
+        equalToJson(
           """{"application_credit":{"description":"application credit for refund","amount":5.0}}"""
         )
       )

@@ -43,7 +43,7 @@ class CreateProductVariantSpec extends ApiSpec {
       .withHeader("Content-Type", equalTo("application/json; charset=UTF-8"))
       .withBasicAuth("testKeyId", "testKeySecret")
       .withRequestBody(
-        equalTo(
+        equalToJson(
           """{"variant":{"option1":"Yellow","price":"1.00","taxable":false}}"""
         )
       )

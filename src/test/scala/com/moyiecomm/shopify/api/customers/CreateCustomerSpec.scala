@@ -68,7 +68,7 @@ class CreateCustomerSpec extends ApiSpec {
     mapping = post("/admin/api/2022-01/customers.json")
       .withBasicAuth("testKeyId", "testKeySecret")
       .withRequestBody(
-        equalTo(
+        equalToJson(
           """{"customer":{"first_name":"Steve","last_name":"Lastnameson","email":"steve.lastnameson@example.com","phone":"+15142546011","verified_email":true,"addresses":[{"address1":"123 Oak St","city":"Ottawa","province":"ON","phone":"555-1212","zip":"123 ABC","last_name":"Lastnameson","first_name":"Mother","country":"CA"}]}}"""
         )
       )

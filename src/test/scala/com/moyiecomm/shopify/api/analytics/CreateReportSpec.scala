@@ -1,6 +1,6 @@
 package com.moyiecomm.shopify.api.analytics
 
-import com.github.tomakehurst.wiremock.client.WireMock.{aResponse, equalTo, post}
+import com.github.tomakehurst.wiremock.client.WireMock._
 import com.moyiecomm.shopify.api.ApiSpec
 import com.moyiecomm.shopify.api.analytics.models.Report
 import sttp.model.{Method, StatusCode}
@@ -24,7 +24,7 @@ class CreateReportSpec extends ApiSpec {
     mapping = post("/admin/api/2022-01/reports.json")
       .withBasicAuth("testKeyId", "testKeySecret")
       .withRequestBody(
-        equalTo(
+        equalToJson(
           """{"report":{"name":"A new app report","shopify_ql":"SHOW total_sales BY order_id FROM sales SINCE -1m UNTIL today ORDER BY total_sales"}}"""
         )
       )

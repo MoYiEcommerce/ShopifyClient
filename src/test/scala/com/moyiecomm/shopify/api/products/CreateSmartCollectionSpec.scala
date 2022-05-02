@@ -35,7 +35,7 @@ class CreateSmartCollectionSpec extends ApiSpec {
       .withHeader("Content-Type", equalTo("application/json; charset=UTF-8"))
       .withBasicAuth("testKeyId", "testKeySecret")
       .withRequestBody(
-        equalTo(
+        equalToJson(
           """{"smart_collection":{"title":"IPods","rules":[{"column":"title","relation":"starts_with","condition":"iPod"}],"disjunctive":false}}"""
         )
       )

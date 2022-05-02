@@ -42,7 +42,7 @@ class CreateRecurringApplicationChargeSpec extends ApiSpec {
     mapping = post("/admin/api/2022-01/recurring_application_charges.json")
       .withBasicAuth("testKeyId", "testKeySecret")
       .withRequestBody(
-        equalTo(
+        equalToJson(
           """{"recurring_application_charge":{"name":"Super Duper Plan","price":10.0,"return_url":"http://super-duper.shopifyapps.com"}}"""
         )
       )

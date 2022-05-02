@@ -24,7 +24,7 @@ class UpdateReportByIdSpec extends ApiSpec {
     mapping = put("/admin/api/2022-01/reports/517154478.json")
       .withBasicAuth("testKeyId", "testKeySecret")
       .withRequestBody(
-        equalTo(
+        equalToJson(
           """{"report":{"id":517154478,"name":"Changed Report Name","shopify_ql":"SHOW total_sales BY order_id FROM sales SINCE -12m UNTIL today ORDER BY total_sales"}}"""
         )
       )

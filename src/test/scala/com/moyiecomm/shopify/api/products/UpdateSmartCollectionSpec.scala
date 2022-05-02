@@ -33,7 +33,9 @@ class UpdateSmartCollectionSpec extends ApiSpec {
       .withHeader("Content-Type", equalTo("application/json; charset=UTF-8"))
       .withBasicAuth("testKeyId", "testKeySecret")
       .withRequestBody(
-        equalTo("""{"smart_collection":{"id":482865238,"body_html":"<p>5000 songs in your pocket</p>","disjunctive":false}}""")
+        equalToJson(
+          """{"smart_collection":{"id":482865238,"body_html":"<p>5000 songs in your pocket</p>","disjunctive":false}}"""
+        )
       )
       .willReturn(
         aResponse()

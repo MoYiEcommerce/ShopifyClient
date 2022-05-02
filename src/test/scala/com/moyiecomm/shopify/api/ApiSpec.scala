@@ -9,7 +9,10 @@ import scala.language.implicitConversions
 import com.moyiecomm.shopify.MockServer
 import com.moyiecomm.shopify.UnitSpec
 import com.moyiecomm.shopify.request.{ApiConfig, ShopifyRequest}
-import sttp.client3.SttpBackend
+import io.circe.Json
+import io.circe._
+import io.circe.parser._
+import sttp.client3.{StringBody, SttpBackend}
 import sttp.client3.asynchttpclient.future.AsyncHttpClientFutureBackend
 import sttp.model.{Method, StatusCode}
 
@@ -39,11 +42,19 @@ trait ApiSpec extends UnitSpec with MockServer {
     it should "generate correct request" in {
       apiRequest.request.uri.toString() should be(expectedUrl)
       apiRequest.request.method should be(expectedMethod)
-      expectedRequestBody match {
-        case Some(body) =>
-          apiRequest.request.body.show should be(s"""string: $body""") // pattern match on request body type here
-        case None =>
-          succeed
+
+      apiRequest.request.body match {
+        case StringBody(json, encoding, contentType) =>
+          expectedRequestBody match {
+            case Some(expected) =>
+              val requestBody  = parse(json).getOrElse(Json.Null)
+              val expectedBody = parse(expected).getOrElse(Json.Null)
+              assert(Json.eqJson.eqv(requestBody, expectedBody))
+            case None =>
+              succeed
+          }
+
+        case _ => fail("expect json body")
       }
     }
 

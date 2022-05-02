@@ -16,7 +16,7 @@ class CreateStorefrontAccessTokenSpec extends ApiSpec {
     mapping = post("/admin/api/2022-01/storefront_access_tokens.json")
       .withBasicAuth("testKeyId", "testKeySecret")
       .withRequestBody(
-        equalTo("""{"storefront_access_token":{"title":"Test"}}""")
+        equalToJson("""{"storefront_access_token":{"title":"Test"}}""")
       )
       .willReturn(
         aResponse()

@@ -32,7 +32,7 @@ class CreateApplicationChargeSpec extends ApiSpec {
     mapping = post("/admin/api/2022-01/application_charges.json")
       .withBasicAuth("testKeyId", "testKeySecret")
       .withRequestBody(
-        equalTo(
+        equalToJson(
           """{"application_charge":{"name":"Super Duper Expensive action","price":100.0,"return_url":"http://super-duper.shopifyapps.com","test":true}}"""
         )
       )

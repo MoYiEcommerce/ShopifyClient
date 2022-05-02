@@ -27,7 +27,7 @@ class CreateUsageChargeSpec extends ApiSpec {
     mapping = post("/admin/api/2022-01/recurring_application_charges/455696195/usage_charges.json")
       .withBasicAuth("testKeyId", "testKeySecret")
       .withRequestBody(
-        equalTo(
+        equalToJson(
           """{"usage_charge":{"description":"Super Mega Plan 1000 emails","price":1.0}}"""
         )
       )

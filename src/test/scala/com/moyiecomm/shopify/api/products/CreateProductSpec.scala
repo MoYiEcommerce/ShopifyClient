@@ -37,7 +37,7 @@ class CreateProductSpec extends ApiSpec {
       .withHeader("Content-Type", equalTo("application/json; charset=UTF-8"))
       .withBasicAuth("testKeyId", "testKeySecret")
       .withRequestBody(
-        equalTo(
+        equalToJson(
           """{"product":{"title":"testProduct","body_html":"\u003cstrong\u003eGood snowboard!\u003c/strong\u003e","vendor":"testVendor","product_type":"testProductType"}}"""
         )
       )

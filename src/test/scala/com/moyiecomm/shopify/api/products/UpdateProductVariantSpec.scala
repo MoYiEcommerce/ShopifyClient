@@ -43,7 +43,7 @@ class UpdateProductVariantSpec extends ApiSpec {
       .withHeader("Content-Type", equalTo("application/json; charset=UTF-8"))
       .withBasicAuth("testKeyId", "testKeySecret")
       .withRequestBody(
-        equalTo("""{"variant":{"id":808950810,"option1":"Not Pink","price":"99.00","taxable":false}}""")
+        equalToJson("""{"variant":{"id":808950810,"option1":"Not Pink","price":"99.00","taxable":false}}""")
       )
       .willReturn(
         aResponse()

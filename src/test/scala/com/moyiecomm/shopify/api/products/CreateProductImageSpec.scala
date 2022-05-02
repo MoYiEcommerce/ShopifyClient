@@ -32,7 +32,7 @@ class CreateProductImageSpec extends ApiSpec {
       .withHeader("Content-Type", equalTo("application/json; charset=UTF-8"))
       .withBasicAuth("testKeyId", "testKeySecret")
       .withRequestBody(
-        equalTo(
+        equalToJson(
           """{"image":{"filename":"testFile.png","attachment":"imageByteStr"}}"""
         )
       )

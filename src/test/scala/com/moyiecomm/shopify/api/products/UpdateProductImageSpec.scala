@@ -30,7 +30,7 @@ class UpdateProductImageSpec extends ApiSpec {
       .withHeader("Content-Type", equalTo("application/json; charset=UTF-8"))
       .withBasicAuth("testKeyId", "testKeySecret")
       .withRequestBody(
-        equalTo("""{"image":{"id":850703190,"alt":"new alt tag content","position":2}}""")
+        equalToJson("""{"image":{"id":850703190,"alt":"new alt tag content","position":2}}""")
       )
       .willReturn(
         aResponse()

@@ -46,7 +46,7 @@ class UpdateCustomerByIdSpec extends ApiSpec {
     mapping = put("/admin/api/2022-01/customers/207119551.json")
       .withBasicAuth("testKeyId", "testKeySecret")
       .withRequestBody(
-        equalTo(
+        equalToJson(
           """{"customer":{"id":207119551,"email":"changed@email.address.com","note":"Customer is a great guy"}}"""
         )
       )
