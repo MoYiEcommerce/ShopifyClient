@@ -16,6 +16,8 @@ import sttp.client3.asynchttpclient.future.AsyncHttpClientFutureBackend
 import sttp.model.{Method, StatusCode}
 
 trait ApiSpec extends UnitSpec with MockServer {
+  import ApiSpec._
+
   implicit val apiConfig: ApiConfig =
     ApiConfig(
       apiKeyId = "testKeyId",
@@ -23,7 +25,6 @@ trait ApiSpec extends UnitSpec with MockServer {
       shopUrl = s"localhost:$port",
       adminApiVersion = "2022-01"
     )
-  implicit val httpBackend: SttpBackend[Future, Any] = AsyncHttpClientFutureBackend()
 
   implicit def timeStringToZonedDateTime(time: String): Option[ZonedDateTime] = {
     Option(ZonedDateTime.parse(time))
@@ -49,11 +50,14 @@ trait ApiSpec extends UnitSpec with MockServer {
               val requestBody  = parse(json).getOrElse(Json.Null)
               val expectedBody = parse(expected).getOrElse(Json.Null)
               assert(Json.eqJson.eqv(requestBody, expectedBody))
+              assert(encoding eq "utf-8")
+              assert(contentType.isApplication && contentType.subType.contentEquals("json"))
             case None =>
               succeed
           }
 
         case NoBody => assertResult(null)(apiRequest.body)
+        case _      => fail("expected StringBody Or NoBody")
       }
     }
 
@@ -70,4 +74,8 @@ trait ApiSpec extends UnitSpec with MockServer {
       }
     }
   }
+}
+
+object ApiSpec {
+  implicit val httpBackend: SttpBackend[Future, Any] = AsyncHttpClientFutureBackend()
 }
