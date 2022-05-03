@@ -15,5 +15,4 @@ object Errors extends CirceConfig {
       Right(Errors(messages))
     }
   }
-
 }

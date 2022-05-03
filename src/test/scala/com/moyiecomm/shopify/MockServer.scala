@@ -10,7 +10,7 @@ import org.scalatest.Suite
 trait MockServer extends BeforeAndAfterAll with BeforeAndAfterEach { self: Suite =>
 
   val port                           = 5089
-  val wireMockServer: WireMockServer = new WireMockServer(options().port(port))
+  val wireMockServer: WireMockServer = new WireMockServer(options().port(port)) // should share
 
   override def beforeEach(): Unit = {
     super.beforeEach()

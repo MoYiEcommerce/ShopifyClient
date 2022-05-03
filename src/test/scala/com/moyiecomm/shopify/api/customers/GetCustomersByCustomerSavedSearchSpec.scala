@@ -2,16 +2,17 @@ package com.moyiecomm.shopify.api.customers
 
 import com.github.tomakehurst.wiremock.client.WireMock._
 import com.moyiecomm.shopify.api.ApiSpec
+import com.moyiecomm.shopify.api.customers.models.Customer.SmsMarketingConsent
 import com.moyiecomm.shopify.api.customers.models.{Address, Customer}
 import sttp.model.{Method, StatusCode}
 
-class GetCustomerListSpec extends ApiSpec {
+class GetCustomersByCustomerSavedSearchSpec extends ApiSpec {
   it should behave like correctShopifyRequestBehaviour(
-    apiRequest = GetCustomerList(),
-    expectedUrl = s"http://localhost:$port/admin/api/2022-01/customers.json",
+    apiRequest = GetCustomersByCustomerSavedSearch(789629109),
+    expectedUrl = s"http://localhost:$port/admin/api/2022-01/customer_saved_searches/789629109/customers.json",
     expectedMethod = Method.GET,
     expectedRequestBody = None,
-    mapping = get("/admin/api/2022-01/customers.json")
+    mapping = get("/admin/api/2022-01/customer_saved_searches/789629109/customers.json")
       .withBasicAuth("testKeyId", "testKeySecret")
       .willReturn(
         aResponse()
@@ -21,10 +22,10 @@ class GetCustomerListSpec extends ApiSpec {
                       |  "customers": [
                       |    {
                       |      "id": 207119551,
-                      |      "email": "bob.norman@mail.example.com",
-                      |      "accepts_marketing": false,
-                      |      "created_at": "2022-04-05T13:01:17-04:00",
-                      |      "updated_at": "2022-04-05T13:01:17-04:00",
+                      |      "email": "bob.norman@hostmail.com",
+                      |      "accepts_marketing": true,
+                      |      "created_at": "2022-03-11T10:52:46-05:00",
+                      |      "updated_at": "2022-03-11T10:53:46-05:00",
                       |      "first_name": "Bob",
                       |      "last_name": "Norman",
                       |      "orders_count": 1,
@@ -60,9 +61,15 @@ class GetCustomerListSpec extends ApiSpec {
                       |          "default": true
                       |        }
                       |      ],
-                      |      "accepts_marketing_updated_at": "2005-06-12T11:57:11-04:00",
-                      |      "marketing_opt_in_level": null,
+                      |      "accepts_marketing_updated_at": "2022-03-11T10:53:46-05:00",
+                      |      "marketing_opt_in_level": "single_opt_in",
                       |      "tax_exemptions": [],
+                      |      "sms_marketing_consent": {
+                      |        "state": "not_subscribed",
+                      |        "opt_in_level": "single_opt_in",
+                      |        "consent_updated_at": null,
+                      |        "consent_collected_from": "OTHER"
+                      |      },
                       |      "admin_graphql_api_id": "gid://shopify/Customer/207119551",
                       |      "default_address": {
                       |        "id": 207119551,
@@ -93,11 +100,11 @@ class GetCustomerListSpec extends ApiSpec {
       List(
         Customer(
           id = Some(207119551),
-          email = "bob.norman@mail.example.com",
+          email = "bob.norman@hostmail.com",
           firstName = "Bob",
           lastName = "Norman",
-          acceptsMarketing = Some(false),
-          acceptsMarketingUpdatedAt = "2005-06-12T11:57:11-04:00",
+          acceptsMarketing = Some(true),
+          acceptsMarketingUpdatedAt = "2022-03-11T10:53:46-05:00",
           addresses = List(
             Address(
               id = Some(207119551),
@@ -148,23 +155,29 @@ class GetCustomerListSpec extends ApiSpec {
           lastOrderId = Some(450789469),
           lastOrderName = Some("#1001"),
           metafield = None,
-          marketingOptInLevel = None,
+          marketingOptInLevel = Some("single_opt_in"),
           multipassIdentifier = None,
           note = None,
           ordersCount = Some(1),
           phone = Some("+16136120707"),
-          smsMarketingConsent = None,
+          smsMarketingConsent = Some(
+            SmsMarketingConsent(
+              state = "not_subscribed",
+              optInLevel = "single_opt_in",
+              consentUpdatedAt = None,
+              consentCollectedFrom = "OTHER"
+            )
+          ),
           state = Some("disabled"),
           tags = Some(""),
           taxExempt = Some(false),
           tax_exemptions = List.empty,
           totalSpent = Some(199.65),
           verifiedEmail = Some(true),
-          createdAt = "2022-04-05T13:01:17-04:00",
-          updatedAt = "2022-04-05T13:01:17-04:00"
+          createdAt = "2022-03-11T10:52:46-05:00",
+          updatedAt = "2022-03-11T10:53:46-05:00"
         )
       )
     )
   )
-
 }
