@@ -8,14 +8,13 @@ import com.moyiecomm.shopify.request.ApiConfig
 import io.circe.{Encoder, Json}
 import io.circe.generic.extras.semiauto._
 import io.circe.syntax._
-import sttp.client3.circe._
 import sttp.model.Method
 import AddProductToCollection.productToCollectEncoder
 import Collect.collectDecoder
 
 case class AddProductToCollection(productToCollect: ProductToCollect)(implicit val apiConfig: ApiConfig)
     extends UpsertItemRequest[ProductToCollect, Collect](productToCollect)(
-      circeBodySerializer(productToCollectEncoder),
+      productToCollectEncoder,
       collectDecoder
     ) {
   override def method: Method = Method.POST

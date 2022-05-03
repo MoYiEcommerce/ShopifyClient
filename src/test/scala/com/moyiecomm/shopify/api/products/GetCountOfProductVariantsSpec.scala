@@ -2,7 +2,7 @@ package com.moyiecomm.shopify.api.products
 
 import com.github.tomakehurst.wiremock.client.WireMock.{aResponse, get}
 import com.moyiecomm.shopify.api.ApiSpec
-import com.moyiecomm.shopify.api.shared.CountOfRequestedItems
+import com.moyiecomm.shopify.api.shared.models.CountOfRequestedItems
 import sttp.model.{Method, StatusCode}
 
 class GetCountOfProductVariantsSpec extends ApiSpec {

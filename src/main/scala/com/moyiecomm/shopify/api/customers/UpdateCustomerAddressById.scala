@@ -3,12 +3,11 @@ package com.moyiecomm.shopify.api.customers
 import com.moyiecomm.shopify.api.customers.models.Address
 import com.moyiecomm.shopify.api.shared.UpsertItemRequest
 import com.moyiecomm.shopify.request.ApiConfig
-import sttp.client3.circe._
 import sttp.model.Method
 import Address.{addressEncoder, addressDecoder}
 
 case class UpdateCustomerAddressById(address: Address)(implicit val apiConfig: ApiConfig)
-    extends UpsertItemRequest[Address, Address](address)(circeBodySerializer(addressEncoder), addressDecoder) {
+    extends UpsertItemRequest[Address, Address](address)(addressEncoder, addressDecoder) {
   override def method: Method = Method.PUT
 
   override def path: String = {

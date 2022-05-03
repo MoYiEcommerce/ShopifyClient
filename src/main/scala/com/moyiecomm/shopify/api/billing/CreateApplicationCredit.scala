@@ -4,12 +4,11 @@ import com.moyiecomm.shopify.api.billing.models.ApplicationCredit
 import com.moyiecomm.shopify.api.shared.UpsertItemRequest
 import com.moyiecomm.shopify.request.ApiConfig
 import sttp.model.Method
-import sttp.client3.circe._
 import ApplicationCredit.{applicationCreditEncoder, applicationCreditDecoder}
 
 case class CreateApplicationCredit(applicationCredit: ApplicationCredit)(implicit val apiConfig: ApiConfig)
     extends UpsertItemRequest[ApplicationCredit, ApplicationCredit](applicationCredit)(
-      circeBodySerializer(applicationCreditEncoder),
+      applicationCreditEncoder,
       applicationCreditDecoder
     ) {
   override def method: Method = Method.POST

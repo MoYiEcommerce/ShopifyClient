@@ -8,11 +8,10 @@ import scala.concurrent.Future
 import scala.language.implicitConversions
 import com.moyiecomm.shopify.MockServer
 import com.moyiecomm.shopify.UnitSpec
-import com.moyiecomm.shopify.request.{ApiConfig, ShopifyRequest}
+import com.moyiecomm.shopify.request.{ApiConfig, ApiRequest}
 import io.circe.Json
-import io.circe._
 import io.circe.parser._
-import sttp.client3.{StringBody, SttpBackend}
+import sttp.client3.{NoBody, StringBody, SttpBackend}
 import sttp.client3.asynchttpclient.future.AsyncHttpClientFutureBackend
 import sttp.model.{Method, StatusCode}
 
@@ -30,8 +29,8 @@ trait ApiSpec extends UnitSpec with MockServer {
     Option(ZonedDateTime.parse(time))
   }
 
-  def correctShopifyRequestBehaviour[Req, Rep](
-      apiRequest: ShopifyRequest[Req, Rep],
+  def correctShopifyRequestBehaviour[Req, Rep, Err](
+      apiRequest: ApiRequest[Req, Rep, Err],
       expectedUrl: String,
       expectedMethod: Method,
       expectedRequestBody: Option[String],
@@ -54,7 +53,7 @@ trait ApiSpec extends UnitSpec with MockServer {
               succeed
           }
 
-        case _ => fail("expect json body")
+        case NoBody => assertResult(null)(apiRequest.body)
       }
     }
 

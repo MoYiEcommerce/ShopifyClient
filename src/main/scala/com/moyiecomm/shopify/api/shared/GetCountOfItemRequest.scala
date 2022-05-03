@@ -1,14 +1,14 @@
 package com.moyiecomm.shopify.api.shared
 
-import com.moyiecomm.shopify.request.ApiRequest
-import com.moyiecomm.shopify.request.ApiRequest.EmptyBody
-import com.moyiecomm.shopify.request.ShopifyRequest
-import io.circe.generic.auto._
-import sttp.client3.circe._
+import com.moyiecomm.shopify.api.shared.models.Errors.errorsDecoder
+import com.moyiecomm.shopify.api.shared.models.{CountOfRequestedItems, Errors}
+import com.moyiecomm.shopify.request.{ApiConfig, ApiRequest}
+import io.circe.generic.semiauto._
 import sttp.model.Method
 
-abstract class GetCountOfItemRequest() extends ShopifyRequest[EmptyBody.type, CountOfRequestedItems] {
+abstract class GetCountOfItemRequest()
+    extends ApiRequest[Null, CountOfRequestedItems, Errors](None, Some(deriveDecoder[CountOfRequestedItems]), errorsDecoder) {
   override def method: Method = Method.GET
 
-  override def body: ApiRequest.RequestEntity = EmptyBody
+  override def body: Null = null
 }

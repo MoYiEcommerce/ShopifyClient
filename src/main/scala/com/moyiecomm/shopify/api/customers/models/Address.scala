@@ -2,7 +2,6 @@ package com.moyiecomm.shopify.api.customers.models
 
 import com.moyiecomm.shopify.api.CirceConfig
 import io.circe.Decoder.Result
-import io.circe.generic.extras.semiauto.deriveConfiguredEncoder
 import io.circe._
 import io.circe.generic.extras.semiauto._
 import io.circe.syntax._

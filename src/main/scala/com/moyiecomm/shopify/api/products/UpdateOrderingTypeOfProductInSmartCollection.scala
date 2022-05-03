@@ -1,15 +1,13 @@
 package com.moyiecomm.shopify.api.products
 
-import com.moyiecomm.shopify.request.ApiRequest.EmptyBody
-import com.moyiecomm.shopify.request.{ApiConfig, ApiRequest, ShopifyRequest}
+import com.moyiecomm.shopify.api.shared.models.Errors
+import com.moyiecomm.shopify.api.shared.models.Errors.errorsDecoder
+import com.moyiecomm.shopify.request.{ApiConfig, ApiRequest}
 import sttp.model.Method
-import sttp.client3._
-import io.circe.generic.auto._
-import sttp.client3.circe._
 
 case class UpdateOrderingTypeOfProductInSmartCollection(smartCollectionId: Long, productIdList: List[Long])(implicit
     val apiConfig: ApiConfig
-) extends ShopifyRequest[EmptyBody.type, IgnoreResponse.type] {
+) extends ApiRequest[Null, Null, Errors](None, None, errorsDecoder) {
   override def method: Method = Method.PUT
 
   override def path: String = {
@@ -17,5 +15,5 @@ case class UpdateOrderingTypeOfProductInSmartCollection(smartCollectionId: Long,
     s"/smart_collections/$smartCollectionId/order.json?$queryUri"
   }
 
-  override def body: ApiRequest.RequestEntity = EmptyBody
+  override def body: Null = null
 }

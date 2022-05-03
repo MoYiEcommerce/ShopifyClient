@@ -2,15 +2,15 @@ package com.moyiecomm.shopify.api.customers
 
 import com.moyiecomm.shopify.api.customers.models.Address
 import com.moyiecomm.shopify.api.customers.models.Address.addressDecoder
-import com.moyiecomm.shopify.api.shared.UpsertItemRequest
-import com.moyiecomm.shopify.request.ApiConfig
-import com.moyiecomm.shopify.request.ApiRequest.{EmptyBody, emptyBodyEncoder}
+import com.moyiecomm.shopify.api.shared.models.Errors
+import com.moyiecomm.shopify.api.shared.models.Errors.errorsDecoder
+import com.moyiecomm.shopify.request.{ApiConfig, ApiRequest}
 import sttp.model.Method
-import sttp.client3.circe._
-
 case class SetDefaultCustomerAddress(customerId: Long, addressId: Long)(implicit val apiConfig: ApiConfig)
-    extends UpsertItemRequest[EmptyBody.type, Address](EmptyBody)(circeBodySerializer(emptyBodyEncoder), addressDecoder) {
+    extends ApiRequest[Null, Address, Errors](None, Some(addressDecoder), errorsDecoder) {
   override def method: Method = Method.PUT
 
   override def path: String = s"/customers/$customerId/addresses/$addressId/default.json"
+
+  override def body: Null = null
 }

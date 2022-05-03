@@ -1,28 +1,49 @@
 package com.moyiecomm.shopify.request
 
-import com.moyiecomm.shopify.request.ApiRequest._
-import io.circe.Decoder.Result
-import io.circe.{Decoder, Encoder, HCursor, Json}
-import sttp.client3.IgnoreResponse
-import sttp.model.Method
+import io.circe._
+import sttp.client3._
+import sttp.client3.circe._
+import sttp.model.{HeaderNames, MediaType, Method}
 
-trait ApiRequest {
+abstract class ApiRequest[Req, Rep, Err](
+    requestBodyEncoder: Option[Encoder[Req]],
+    responseBodyDecoder: Option[Decoder[Rep]],
+    errorDecoder: Decoder[Err]
+) {
+
+  def body: Req
   def method: Method
   def path: String
-  def body: RequestEntity
   def apiConfig: ApiConfig
-}
 
-object ApiRequest {
-  sealed trait RequestEntity
-  case object EmptyBody           extends RequestEntity
-  case class Entity[T](entity: T) extends RequestEntity
+  def fullPath = s"http://${apiConfig.shopUrl}${apiConfig.apiPathPrefix}$path"
 
-  val emptyBodyEncoder: Encoder[EmptyBody.type] = new Encoder[EmptyBody.type] {
-    override def apply(a: EmptyBody.type): Json = Json.Null
+  def request: RequestT[Identity, Any, Any] = {
+    val requestBody: RequestBody[Any] = requestBodyEncoder match {
+      case Some(reqEncoder) => circeBodySerializer(reqEncoder, Printer.noSpaces)(body)
+      case None             => NoBody
+    }
+
+    val responseAs: ResponseAs[Any, Any] = responseBodyDecoder match {
+      case Some(repDecoder) =>
+        implicit val rpd: Decoder[Rep] = repDecoder
+        implicit val ed: Decoder[Err]  = errorDecoder
+        asJsonEither[Err, Rep]
+      case None =>
+        IgnoreResponse
+    }
+
+    basicRequest
+      .method(method, uri"$fullPath")
+      .copy(body = requestBody)
+      .contentType(MediaType.ApplicationJson.charset("UTF-8"))
+      .auth
+      .basic(apiConfig.apiKeyId, apiConfig.apiKeySecret)
+      .response(responseAs)
   }
 
-  val ignoreResponseDecoder: Decoder[IgnoreResponse.type] = new Decoder[IgnoreResponse.type] {
-    override def apply(c: HCursor): Result[IgnoreResponse.type] = Right(IgnoreResponse)
-  }
+  def response[F[_], P]()(implicit
+      sttpBackend: SttpBackend[F, P]
+  ): F[Response[Any]] =
+    request.send(sttpBackend)
 }

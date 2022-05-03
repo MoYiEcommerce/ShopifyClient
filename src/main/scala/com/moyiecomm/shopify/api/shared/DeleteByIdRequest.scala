@@ -1,16 +1,13 @@
 package com.moyiecomm.shopify.api.shared
 
-import com.moyiecomm.shopify.request.ApiRequest.EmptyBody
-import com.moyiecomm.shopify.request.ApiRequest.RequestEntity
-import com.moyiecomm.shopify.request.ShopifyRequest
-import io.circe.generic.auto._
-import sttp.client3._
-import sttp.client3.circe._
+import com.moyiecomm.shopify.api.shared.models.Errors
+import com.moyiecomm.shopify.api.shared.models.Errors.errorsDecoder
+import com.moyiecomm.shopify.request.{ApiConfig, ApiRequest}
 import sttp.model.Method
 
-abstract class DeleteByIdRequest extends ShopifyRequest[EmptyBody.type, IgnoreResponse.type] {
+abstract class DeleteByIdRequest() extends ApiRequest[Null, Null, Errors](None, None, errorsDecoder) {
 
   override def method: Method = Method.DELETE
 
-  override def body: RequestEntity = EmptyBody
+  override def body: Null = null
 }

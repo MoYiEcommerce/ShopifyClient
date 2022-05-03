@@ -9,7 +9,7 @@ import Collection.{customCollectionEncoder, collectionDecoder}
 
 case class CreateCustomCollection(collection: Collection)(implicit val apiConfig: ApiConfig)
     extends UpsertItemRequest[Collection, Collection](collection)(
-      circeBodySerializer(customCollectionEncoder),
+      customCollectionEncoder,
       collectionDecoder
     ) {
   override def method: Method = Method.POST

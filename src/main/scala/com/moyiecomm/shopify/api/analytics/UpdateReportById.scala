@@ -4,11 +4,10 @@ import com.moyiecomm.shopify.api.analytics.models.Report
 import com.moyiecomm.shopify.api.analytics.models.Report.{reportEncoder, reportDecoder}
 import com.moyiecomm.shopify.api.shared.UpsertItemRequest
 import com.moyiecomm.shopify.request.ApiConfig
-import sttp.client3.circe._
 import sttp.model.Method
 
 case class UpdateReportById(report: Report)(implicit val apiConfig: ApiConfig)
-    extends UpsertItemRequest[Report, Report](report)(circeBodySerializer(reportEncoder), reportDecoder) {
+    extends UpsertItemRequest[Report, Report](report)(reportEncoder, reportDecoder) {
   override def method: Method = Method.PUT
 
   override def path: String = {

@@ -1,13 +1,11 @@
 package com.moyiecomm.shopify.api.shared
 
-import com.moyiecomm.shopify.request.ApiRequest.Entity
-import com.moyiecomm.shopify.request.ShopifyRequest
-import io.circe.Decoder
-import sttp.client3._
+import com.moyiecomm.shopify.api.shared.models.Errors
+import com.moyiecomm.shopify.api.shared.models.Errors.errorsDecoder
+import com.moyiecomm.shopify.request.{ApiConfig, ApiRequest}
+import io.circe.{Decoder, Encoder}
 
-abstract class UpsertItemRequest[BODY, RESP](body: BODY)(implicit
-    requestBodySerializer: BodySerializer[BODY],
+abstract class UpsertItemRequest[BODY, RESP](val body: BODY)(implicit
+    requestBodyEncoder: Encoder[BODY],
     responseBodyDecoder: Decoder[RESP]
-) extends ShopifyRequest[BODY, RESP] {
-  override def body: Entity[BODY] = Entity(body)
-}
+) extends ApiRequest[BODY, RESP, Errors](Some(requestBodyEncoder), Some(responseBodyDecoder), errorsDecoder) {}
