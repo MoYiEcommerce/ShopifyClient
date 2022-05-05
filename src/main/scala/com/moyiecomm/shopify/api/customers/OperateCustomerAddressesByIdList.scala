@@ -1,16 +1,13 @@
 package com.moyiecomm.shopify.api.customers
 
-import com.moyiecomm.shopify.api.shared.models.Errors
-import com.moyiecomm.shopify.api.shared.models.Errors.errorsDecoder
 import com.moyiecomm.shopify.request.{ApiConfig, ApiRequest}
 import sttp.model.Method
 
 case class OperateCustomerAddressesByIdList(customerId: Long, addressIds: List[Long], operation: String)(implicit
     val apiConfig: ApiConfig
-) extends ApiRequest[Null, Null, Errors](
+) extends ApiRequest[Null, Null](
       None,
-      None,
-      errorsDecoder
+      None
     ) {
   override def method: Method = Method.PUT
 

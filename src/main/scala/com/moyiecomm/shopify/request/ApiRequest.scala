@@ -3,12 +3,11 @@ package com.moyiecomm.shopify.request
 import io.circe._
 import sttp.client3._
 import sttp.client3.circe._
-import sttp.model.{HeaderNames, MediaType, Method}
+import sttp.model.{MediaType, Method}
 
-abstract class ApiRequest[Req, Rep, Err](
+abstract class ApiRequest[Req, Rep](
     requestBodyEncoder: Option[Encoder[Req]],
-    responseBodyDecoder: Option[Decoder[Rep]],
-    errorDecoder: Decoder[Err]
+    responseBodyDecoder: Option[Decoder[Rep]]
 ) {
 
   def body: Req
@@ -27,8 +26,7 @@ abstract class ApiRequest[Req, Rep, Err](
     val responseAs: ResponseAs[Any, Any] = responseBodyDecoder match {
       case Some(repDecoder) =>
         implicit val rpd: Decoder[Rep] = repDecoder
-        implicit val ed: Decoder[Err]  = errorDecoder
-        asJsonEither[Err, Rep]
+        asJson[Rep]
       case None =>
         IgnoreResponse
     }

@@ -4,14 +4,11 @@ import com.moyiecomm.shopify.api.customers.models.CustomerInvite
 import com.moyiecomm.shopify.request.{ApiConfig, ApiRequest}
 import sttp.model.Method
 import CustomerInvite.customerInviteDecoder
-import com.moyiecomm.shopify.api.shared.models.Errors
-import com.moyiecomm.shopify.api.shared.models.Errors.errorsDecoder
 
 case class SendAccountInvitation(customerId: Long)(implicit val apiConfig: ApiConfig)
-    extends ApiRequest[Null, CustomerInvite, Errors](
+    extends ApiRequest[Null, CustomerInvite](
       None,
-      Some(customerInviteDecoder),
-      errorsDecoder
+      Some(customerInviteDecoder)
     ) {
   override def method: Method = Method.POST
 

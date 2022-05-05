@@ -4,14 +4,11 @@ import com.moyiecomm.shopify.api.billing.models.RecurringApplicationCharge
 import com.moyiecomm.shopify.request.{ApiConfig, ApiRequest}
 import sttp.model.Method
 import RecurringApplicationCharge.recurringApplicationChargeDecoder
-import com.moyiecomm.shopify.api.shared.models.Errors
-import com.moyiecomm.shopify.api.shared.models.Errors.errorsDecoder
 
 case class UpdateCappedAmount(recurringChargeId: Int, cappedAmount: Int)(implicit val apiConfig: ApiConfig)
-    extends ApiRequest[Null, RecurringApplicationCharge, Errors](
+    extends ApiRequest[Null, RecurringApplicationCharge](
       None,
-      Some(recurringApplicationChargeDecoder),
-      errorsDecoder
+      Some(recurringApplicationChargeDecoder)
     ) {
   override def method: Method = Method.PUT
 

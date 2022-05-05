@@ -1,6 +1,6 @@
-package com.moyiecomm.shopify.api.discounts
+package com.moyiecomm.shopify.api.discounts.models
 
-import com.moyiecomm.shopify.api.discounts.PriceRule._
+import com.moyiecomm.shopify.api.discounts.models.PriceRule._
 
 case class PriceRule(
     allocationMethod: String,

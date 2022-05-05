@@ -3,15 +3,12 @@ package com.moyiecomm.shopify.api.customers
 import com.moyiecomm.shopify.api.customers.models.AccountActivationUrl
 import com.moyiecomm.shopify.request.{ApiConfig, ApiRequest}
 import AccountActivationUrl.accountActivationUrlDecoder
-import com.moyiecomm.shopify.api.shared.models.Errors
-import com.moyiecomm.shopify.api.shared.models.Errors.errorsDecoder
 import sttp.model.Method
 
 case class CreateAccountActivationUrl(customerId: Long)(implicit val apiConfig: ApiConfig)
-    extends ApiRequest[Null, AccountActivationUrl, Errors](
+    extends ApiRequest[Null, AccountActivationUrl](
       None,
-      Some(accountActivationUrlDecoder),
-      errorsDecoder
+      Some(accountActivationUrlDecoder)
     ) {
   override def method: Method = Method.POST
 

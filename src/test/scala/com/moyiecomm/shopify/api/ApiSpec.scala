@@ -30,8 +30,8 @@ trait ApiSpec extends UnitSpec with MockServer {
     Option(ZonedDateTime.parse(time))
   }
 
-  def correctShopifyRequestBehaviour[Req, Rep, Err](
-      apiRequest: ApiRequest[Req, Rep, Err],
+  def correctShopifyRequestBehaviour[Req, Rep](
+      apiRequest: ApiRequest[Req, Rep],
       expectedUrl: String,
       expectedMethod: Method,
       expectedRequestBody: Option[String],

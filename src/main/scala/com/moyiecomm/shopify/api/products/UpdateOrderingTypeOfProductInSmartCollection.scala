@@ -1,13 +1,11 @@
 package com.moyiecomm.shopify.api.products
 
-import com.moyiecomm.shopify.api.shared.models.Errors
-import com.moyiecomm.shopify.api.shared.models.Errors.errorsDecoder
 import com.moyiecomm.shopify.request.{ApiConfig, ApiRequest}
 import sttp.model.Method
 
 case class UpdateOrderingTypeOfProductInSmartCollection(smartCollectionId: Long, productIdList: List[Long])(implicit
     val apiConfig: ApiConfig
-) extends ApiRequest[Null, Null, Errors](None, None, errorsDecoder) {
+) extends ApiRequest[Null, Null](None, None) {
   override def method: Method = Method.PUT
 
   override def path: String = {
