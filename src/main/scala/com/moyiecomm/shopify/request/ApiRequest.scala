@@ -5,6 +5,7 @@ import sttp.client3._
 import sttp.client3.circe._
 import sttp.model.{MediaType, Method}
 
+// todo try use ApiRequest[F, Req, Rep]
 abstract class ApiRequest[Req, Rep](
     requestBodyEncoder: Option[Encoder[Req]],
     responseBodyDecoder: Option[Decoder[Rep]]
@@ -23,13 +24,13 @@ abstract class ApiRequest[Req, Rep](
       case None             => NoBody
     }
 
-    val responseAs: ResponseAs[Any, Any] = responseBodyDecoder match {
+    val responseAs: ResponseAs[Either[Serializable, Any], Any] = (responseBodyDecoder match {
       case Some(repDecoder) =>
         implicit val rpd: Decoder[Rep] = repDecoder
         asJson[Rep]
       case None =>
-        IgnoreResponse
-    }
+        asString
+    })
 
     basicRequest
       .method(method, uri"$fullPath")

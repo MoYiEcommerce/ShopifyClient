@@ -6,7 +6,7 @@ import com.moyiecomm.shopify.request.ApiConfig
 import DiscountCode.{discountCodeDecoder, discountCodeEncoder}
 import sttp.model.Method
 
-case class UpdateDiscountCode(priceRuleId: Long, discountCode: DiscountCode)(implicit val apiConfig: ApiConfig)
+case class UpdateDiscountCodeById(priceRuleId: Long, discountCode: DiscountCode)(implicit val apiConfig: ApiConfig)
     extends UpsertItemRequest[DiscountCode, DiscountCode](discountCode)(discountCodeEncoder, discountCodeDecoder) {
   override def method: Method = Method.PUT
 

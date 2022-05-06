@@ -7,7 +7,7 @@ import sttp.model.{Method, StatusCode}
 
 class UpdateDiscountCodeSpec extends ApiSpec {
   it should behave like correctShopifyRequestBehaviour(
-    apiRequest = UpdateDiscountCode(
+    apiRequest = UpdateDiscountCodeById(
       507328175,
       DiscountCode(
         id = Some(507328175),

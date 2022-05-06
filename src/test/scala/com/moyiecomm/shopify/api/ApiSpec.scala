@@ -63,7 +63,7 @@ trait ApiSpec extends UnitSpec with MockServer {
 
     it should s"get success response[${expectedStatusCode.code}] and parse response" in {
       stubFor(mapping)
-      apiRequest.response().map { rep =>
+      apiRequest.response.map { rep =>
         expectedResponseBody match {
           case Some(body) =>
             rep.body should be(Right(body))
