@@ -5,7 +5,6 @@ import sttp.client3._
 import sttp.client3.circe._
 import sttp.model.{MediaType, Method}
 
-// todo try use ApiRequest[F, Req, Rep]
 abstract class ApiRequest[Req, Rep](
     requestBodyEncoder: Option[Encoder[Req]],
     responseBodyDecoder: Option[Decoder[Rep]]
