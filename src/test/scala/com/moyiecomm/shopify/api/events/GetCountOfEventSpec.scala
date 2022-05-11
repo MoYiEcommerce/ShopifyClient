@@ -30,5 +30,4 @@ class GetCountOfEventSpec extends ApiSpec {
       CountOfRequestedItems(1)
     )
   )
-
 }
