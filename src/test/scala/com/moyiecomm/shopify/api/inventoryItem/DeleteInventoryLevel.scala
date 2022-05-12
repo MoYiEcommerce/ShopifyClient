@@ -21,5 +21,4 @@ class DeleteInventoryLevel extends ApiSpec {
     expectedStatusCode = StatusCode.NoContent,
     expectedResponseBody = None
   )
-
 }
