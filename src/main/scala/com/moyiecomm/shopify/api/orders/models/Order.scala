@@ -1,9 +1,9 @@
-package com.moyiecomm.shopify.api.orders
+package com.moyiecomm.shopify.api.orders.models
 
-import com.moyiecomm.shopify.api.CirceConfig
 import com.moyiecomm.shopify.api.customers.models.{Address, Customer}
 import com.moyiecomm.shopify.api.discounts.models.DiscountCode
-import com.moyiecomm.shopify.api.orders.Order._
+import com.moyiecomm.shopify.api.orders.models.Order._
+import com.moyiecomm.shopify.api.shared.models.{LineItem, NoteAttribute, ShippingLine, TaxLine}
 
 case class Order(
     appId: Long,

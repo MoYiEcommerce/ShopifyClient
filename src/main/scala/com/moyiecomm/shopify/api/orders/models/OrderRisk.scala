@@ -1,4 +1,4 @@
-package com.moyiecomm.shopify.api.orders
+package com.moyiecomm.shopify.api.orders.models
 
 case class OrderRisk(
     causeCancel: Boolean,

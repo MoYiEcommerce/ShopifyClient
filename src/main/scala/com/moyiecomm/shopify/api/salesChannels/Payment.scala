@@ -1,6 +1,6 @@
 package com.moyiecomm.shopify.api.salesChannels
 
-import com.moyiecomm.shopify.api.orders.Transaction
+import com.moyiecomm.shopify.api.orders.models.Transaction
 import com.moyiecomm.shopify.api.salesChannels.Payment._
 
 case class Payment(

@@ -23,8 +23,8 @@ case class Address(
     provinceCode: Option[String],
     countryCode: Option[String],
     countryName: Option[String],
-    latitude: Option[String],
-    longitude: Option[String],
+    latitude: Option[Double],
+    longitude: Option[Double],
     default: Option[Boolean]
 )
 

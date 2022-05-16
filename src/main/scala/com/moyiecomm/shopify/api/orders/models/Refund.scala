@@ -1,6 +1,7 @@
-package com.moyiecomm.shopify.api.orders
+package com.moyiecomm.shopify.api.orders.models
 
-import com.moyiecomm.shopify.api.orders.Refund._
+import com.moyiecomm.shopify.api.orders.models.Refund._
+import com.moyiecomm.shopify.api.shared.models.LineItem
 
 case class Refund(
     createAt: Long,

@@ -28,6 +28,8 @@ class UpdateCustomerByIdSpec extends ApiSpec {
         ordersCount = None,
         phone = None,
         smsMarketingConsent = None,
+        emailMarketingConsent = None,
+        smsTransactionalConsent = None,
         state = None,
         tags = None,
         taxExempt = None,
@@ -196,11 +198,13 @@ class UpdateCustomerByIdSpec extends ApiSpec {
         smsMarketingConsent = Some(
           SmsMarketingConsent(
             state = "not_subscribed",
-            optInLevel = "single_opt_in",
+            optInLevel = Some("single_opt_in"),
             consentUpdatedAt = None,
-            consentCollectedFrom = "OTHER"
+            consentCollectedFrom = Some("OTHER")
           )
         ),
+        emailMarketingConsent = None,
+        smsTransactionalConsent = None,
         state = Some("disabled"),
         tags = Some(""),
         taxExempt = Some(false),

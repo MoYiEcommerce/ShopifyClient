@@ -1,6 +1,7 @@
-package com.moyiecomm.shopify.api.orders
+package com.moyiecomm.shopify.api.orders.models
 
 import com.moyiecomm.shopify.api.customers.models.{Address, Customer}
+import com.moyiecomm.shopify.api.shared.models.{AppliedDiscount, LineItem, NoteAttribute, ShippingLine, TaxLine}
 
 case class DraftOrder(
     id: Long,

@@ -1,12 +1,9 @@
 package com.moyiecomm.shopify.api.salesChannels
 
 import com.moyiecomm.shopify.api.customers.models.Address
-import com.moyiecomm.shopify.api.orders.AppliedDiscount
-import com.moyiecomm.shopify.api.orders.LineItem
-import com.moyiecomm.shopify.api.orders.Order
-import com.moyiecomm.shopify.api.orders.ShippingLine
-import com.moyiecomm.shopify.api.orders.TaxLine
+import com.moyiecomm.shopify.api.orders.models.Order
 import com.moyiecomm.shopify.api.plus.GiftCard
+import com.moyiecomm.shopify.api.shared.models.{AppliedDiscount, LineItem, ShippingLine, TaxLine}
 
 case class Checkout(
     appliedDiscount: AppliedDiscount,

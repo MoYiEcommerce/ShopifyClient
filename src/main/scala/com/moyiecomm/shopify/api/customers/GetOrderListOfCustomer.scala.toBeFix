@@ -1,6 +1,6 @@
 package com.moyiecomm.shopify.api.customers
 
-import com.moyiecomm.shopify.api.orders.Order
+import com.moyiecomm.shopify.api.orders.models.Order
 import com.moyiecomm.shopify.api.shared.GetItemRequest
 import com.moyiecomm.shopify.request.ApiConfig
 //import Order.orderListDecoder

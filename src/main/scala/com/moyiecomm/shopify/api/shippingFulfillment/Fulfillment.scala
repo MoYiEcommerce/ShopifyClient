@@ -1,8 +1,8 @@
 package com.moyiecomm.shopify.api.shippingFulfillment
 
 import com.moyiecomm.shopify.api.customers.models.Address
-import com.moyiecomm.shopify.api.orders.LineItem
-import com.moyiecomm.shopify.api.orders.Receipt
+import com.moyiecomm.shopify.api.orders.models.Receipt
+import com.moyiecomm.shopify.api.shared.models.LineItem
 
 case class Fulfillment(
     createdAt: Long,

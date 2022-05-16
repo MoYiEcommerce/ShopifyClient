@@ -154,6 +154,8 @@ class SearchCustomerByQuerySpec extends ApiSpec {
           ordersCount = Some(1),
           phone = Some("+16136120707"),
           smsMarketingConsent = None,
+          emailMarketingConsent = None,
+          smsTransactionalConsent = None,
           state = Some("disabled"),
           tags = Some(""),
           taxExempt = Some(false),

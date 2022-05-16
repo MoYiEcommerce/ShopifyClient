@@ -50,6 +50,8 @@ class CreateCustomerSpec extends ApiSpec {
         ordersCount = None,
         phone = Some("+15142546011"),
         smsMarketingConsent = None,
+        emailMarketingConsent = None,
+        smsTransactionalConsent = None,
         state = None,
         tags = None,
         taxExempt = None,
@@ -218,11 +220,13 @@ class CreateCustomerSpec extends ApiSpec {
         smsMarketingConsent = Some(
           SmsMarketingConsent(
             state = "not_subscribed",
-            optInLevel = "single_opt_in",
+            optInLevel = Some("single_opt_in"),
             consentUpdatedAt = None,
-            consentCollectedFrom = "OTHER"
+            consentCollectedFrom = Some("OTHER")
           )
         ),
+        emailMarketingConsent = None,
+        smsTransactionalConsent = None,
         state = Some("disabled"),
         tags = Some(""),
         taxExempt = Some(false),

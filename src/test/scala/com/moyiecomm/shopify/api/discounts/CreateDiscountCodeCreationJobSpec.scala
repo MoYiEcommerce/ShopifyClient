@@ -16,7 +16,9 @@ class CreateDiscountCodeCreationJobSpec extends ApiSpec {
           usageCount = None,
           priceRuleId = None,
           createdAt = None,
-          updatedAt = None
+          updatedAt = None,
+          amount = None,
+          `type` = None
         ),
         DiscountCode(
           id = None,
@@ -24,7 +26,9 @@ class CreateDiscountCodeCreationJobSpec extends ApiSpec {
           usageCount = None,
           priceRuleId = None,
           createdAt = None,
-          updatedAt = None
+          updatedAt = None,
+          amount = None,
+          `type` = None
         ),
         DiscountCode(
           id = None,
@@ -32,7 +36,9 @@ class CreateDiscountCodeCreationJobSpec extends ApiSpec {
           usageCount = None,
           priceRuleId = None,
           createdAt = None,
-          updatedAt = None
+          updatedAt = None,
+          amount = None,
+          `type` = None
         )
       )
     ),

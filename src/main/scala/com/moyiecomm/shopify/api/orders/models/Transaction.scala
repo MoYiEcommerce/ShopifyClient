@@ -1,6 +1,6 @@
-package com.moyiecomm.shopify.api.orders
+package com.moyiecomm.shopify.api.orders.models
 
-import com.moyiecomm.shopify.api.orders.Transaction._
+import com.moyiecomm.shopify.api.orders.models.Transaction._
 
 case class Transaction(
     amount: String,

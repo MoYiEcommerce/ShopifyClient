@@ -29,6 +29,8 @@ case class Customer(
     note: Option[String],
     ordersCount: Option[Int],
     smsMarketingConsent: Option[SmsMarketingConsent],
+    emailMarketingConsent: Option[SmsMarketingConsent],
+    smsTransactionalConsent: Option[SmsMarketingConsent],
     state: Option[String],
     tags: Option[String],
     taxExempt: Option[Boolean],
@@ -48,9 +50,9 @@ object Customer extends CirceConfig {
   )
   case class SmsMarketingConsent(
       state: String,
-      optInLevel: String,
+      optInLevel: Option[String],
       consentUpdatedAt: Option[ZonedDateTime],
-      consentCollectedFrom: String
+      consentCollectedFrom: Option[String]
   )
 
   implicit val metafieldEncoder: Encoder[Metafield] = deriveConfiguredEncoder[Metafield]

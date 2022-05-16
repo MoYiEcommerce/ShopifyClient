@@ -12,6 +12,8 @@ case class DiscountCode(
     id: Option[Long],
     code: String,
     usageCount: Option[Int],
+    amount: Option[Double],
+    `type`: Option[String],
     priceRuleId: Option[Long],
     createdAt: Option[ZonedDateTime],
     updatedAt: Option[ZonedDateTime]

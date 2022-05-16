@@ -15,7 +15,9 @@ class UpdateDiscountCodeSpec extends ApiSpec {
         usageCount = None,
         priceRuleId = None,
         createdAt = None,
-        updatedAt = None
+        updatedAt = None,
+        amount = None,
+        `type` = None
       )
     ),
     expectedUrl = s"http://localhost:$port/admin/api/2022-01/price_rules/507328175/discount_codes/507328175.json",
@@ -52,7 +54,9 @@ class UpdateDiscountCodeSpec extends ApiSpec {
         usageCount = Some(0),
         priceRuleId = Some(507328175),
         createdAt = "2022-04-05T13:05:24-04:00",
-        updatedAt = "2022-04-05T13:06:58-04:00"
+        updatedAt = "2022-04-05T13:06:58-04:00",
+        amount = None,
+        `type` = None
       )
     )
   )

@@ -40,7 +40,9 @@ class GetDiscountCodeListSpec extends ApiSpec {
           usageCount = Some(0),
           priceRuleId = Some(507328175),
           createdAt = "2022-04-05T13:05:24-04:00",
-          updatedAt = "2022-04-05T13:05:24-04:00"
+          updatedAt = "2022-04-05T13:05:24-04:00",
+          amount = None,
+          `type` = None
         )
       )
     )

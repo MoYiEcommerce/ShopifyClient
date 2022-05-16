@@ -1,7 +1,7 @@
 package com.moyiecomm.shopify.api.shippingFulfillment
 
 import com.moyiecomm.shopify.api.customers.models.Address
-import com.moyiecomm.shopify.api.orders.LineItem
+import com.moyiecomm.shopify.api.shared.models.LineItem
 import com.moyiecomm.shopify.api.shippingFulfillment.FulfillmentOrder._
 
 case class FulfillmentOrder(
