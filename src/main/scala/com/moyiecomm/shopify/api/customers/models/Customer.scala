@@ -1,7 +1,8 @@
 package com.moyiecomm.shopify.api.customers.models
 
 import com.moyiecomm.shopify.api.CirceConfig
-import com.moyiecomm.shopify.api.customers.models.Customer.{Metafield, SmsMarketingConsent}
+import com.moyiecomm.shopify.api.customers.models.Customer.Metafield
+import com.moyiecomm.shopify.api.shared.models.MarketingConsent
 import io.circe.Decoder.Result
 import io.circe._
 import io.circe.generic.extras.semiauto._
@@ -28,9 +29,9 @@ case class Customer(
     multipassIdentifier: Option[String],
     note: Option[String],
     ordersCount: Option[Int],
-    smsMarketingConsent: Option[SmsMarketingConsent],
-    emailMarketingConsent: Option[SmsMarketingConsent],
-    smsTransactionalConsent: Option[SmsMarketingConsent],
+    smsMarketingConsent: Option[MarketingConsent],
+    emailMarketingConsent: Option[MarketingConsent],
+    smsTransactionalConsent: Option[MarketingConsent],
     state: Option[String],
     tags: Option[String],
     taxExempt: Option[Boolean],
@@ -48,18 +49,9 @@ object Customer extends CirceConfig {
       valueType: String,
       description: Option[String]
   )
-  case class SmsMarketingConsent(
-      state: String,
-      optInLevel: Option[String],
-      consentUpdatedAt: Option[ZonedDateTime],
-      consentCollectedFrom: Option[String]
-  )
 
   implicit val metafieldEncoder: Encoder[Metafield] = deriveConfiguredEncoder[Metafield]
   implicit val metafieldDecoder: Decoder[Metafield] = deriveConfiguredDecoder[Metafield]
-
-  implicit val smsMarketingConsentEncoder: Encoder[SmsMarketingConsent] = deriveConfiguredEncoder[SmsMarketingConsent]
-  implicit val smsMarketingConsentDecoder: Decoder[SmsMarketingConsent] = deriveConfiguredDecoder[SmsMarketingConsent]
 
   val customerEncoder: Encoder[Customer] = new Encoder[Customer] {
     implicit val addressEncoder: Encoder[Address] = deriveConfiguredEncoder[Address]

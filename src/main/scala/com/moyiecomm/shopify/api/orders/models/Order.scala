@@ -3,7 +3,7 @@ package com.moyiecomm.shopify.api.orders.models
 import com.moyiecomm.shopify.api.customers.models.{Address, Customer}
 import com.moyiecomm.shopify.api.discounts.models.DiscountCode
 import com.moyiecomm.shopify.api.orders.models.Order._
-import com.moyiecomm.shopify.api.shared.models.{LineItem, NoteAttribute, ShippingLine, TaxLine}
+import com.moyiecomm.shopify.api.shared.models.{LineItem, NoteAttribute, PaymentTerms, ShippingLine, TaxLine}
 
 case class Order(
     appId: Long,
@@ -46,7 +46,7 @@ case class Order(
     orderNumber: Int,
     originalTotalDutiesSet: OriginalTotalDutiesSet,
     paymentDetails: PaymentDetail,
-    paymentTerms: PaymentTerm,
+    paymentTerms: PaymentTerms,
     phone: String,
     presentmentCurrency: String,
     processedAt: Long,

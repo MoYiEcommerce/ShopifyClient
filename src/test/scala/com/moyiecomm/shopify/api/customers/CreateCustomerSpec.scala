@@ -2,8 +2,8 @@ package com.moyiecomm.shopify.api.customers
 
 import com.github.tomakehurst.wiremock.client.WireMock._
 import com.moyiecomm.shopify.api.ApiSpec
-import com.moyiecomm.shopify.api.customers.models.Customer.SmsMarketingConsent
 import com.moyiecomm.shopify.api.customers.models.{Address, Customer}
+import com.moyiecomm.shopify.api.shared.models.MarketingConsent
 import sttp.model.{Method, StatusCode}
 
 class CreateCustomerSpec extends ApiSpec {
@@ -218,7 +218,7 @@ class CreateCustomerSpec extends ApiSpec {
         ordersCount = Some(0),
         phone = Some("+15142546011"),
         smsMarketingConsent = Some(
-          SmsMarketingConsent(
+          MarketingConsent(
             state = "not_subscribed",
             optInLevel = Some("single_opt_in"),
             consentUpdatedAt = None,

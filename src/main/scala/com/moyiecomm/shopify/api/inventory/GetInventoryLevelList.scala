@@ -15,6 +15,7 @@ case class GetInventoryLevelList(inventoryItemIds: List[Long], locationIds: List
       case (true, true) =>
         Seq(s"inventory_item_ids=${inventoryItemIds.mkString(",")}", s"location_ids=${locationIds.mkString(",")}")
           .mkString("&")
+      case (false, false) => ""
     }
     Seq("/inventory_levels.json", parameters).mkString("?")
   }

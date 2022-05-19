@@ -2,20 +2,29 @@ package com.moyiecomm.shopify.api.orders
 
 import com.github.tomakehurst.wiremock.client.WireMock.{aResponse, get}
 import com.moyiecomm.shopify.api.ApiSpec
-import com.moyiecomm.shopify.api.customers.models.Customer.SmsMarketingConsent
 import com.moyiecomm.shopify.api.customers.models.{Address, Customer}
 import com.moyiecomm.shopify.api.discounts.models.DiscountCode
 import com.moyiecomm.shopify.api.orders.models.AbandonedCheckout
-import com.moyiecomm.shopify.api.shared.models.{LineItem, NoteAttribute, ShippingLine, TaxLine}
+import com.moyiecomm.shopify.api.shared.models.{AppliedDiscount, LineItem, MarketingConsent, NoteAttribute, ShippingLine, TaxLine}
 import sttp.model.{Method, StatusCode}
+
+import java.time.ZonedDateTime
 
 class GetAbandonedCheckoutListSpec extends ApiSpec {
   it should behave like correctShopifyRequestBehaviour(
-    apiRequest = GetAbandonedCheckoutList(),
-    expectedUrl = s"http://localhost:$port/admin/api/2022-01/checkouts.json",
+    apiRequest = GetAbandonedCheckoutList(
+      createdAtMax = None,
+      createdAtMin = None,
+      limit = Some(1),
+      sinceId = None,
+      status = None,
+      updatedAtMax = None,
+      updatedAtMin = Some(ZonedDateTime.parse("2012-10-12T07:05:27-04:00"))
+    ),
+    expectedUrl = s"http://localhost:$port/admin/api/2022-01/checkouts.json?updated_at_min=2012-10-12T07:05:27-04:00&limit=1",
     expectedMethod = Method.GET,
     expectedRequestBody = None,
-    mapping = get("/admin/api/2022-01/checkouts.json")
+    mapping = get("/admin/api/2022-01/checkouts.json?updated_at_min=2012-10-12T07:05:27-04:00&limit=1")
       .withBasicAuth("testKeyId", "testKeySecret")
       .willReturn(
         aResponse()
@@ -358,7 +367,7 @@ class GetAbandonedCheckoutListSpec extends ApiSpec {
             ordersCount = Some(1),
             smsMarketingConsent = None,
             emailMarketingConsent = Some(
-              SmsMarketingConsent(
+              MarketingConsent(
                 state = "not_subscribed",
                 optInLevel = None,
                 consentUpdatedAt = "2004-06-13T11:57:11-04:00",
@@ -390,6 +399,9 @@ class GetAbandonedCheckoutListSpec extends ApiSpec {
           ),
           lineItems = List(
             LineItem(
+              id = None,
+              custom = None,
+              name = None,
               fulfillmentService = Some("manual"),
               fulfillmentStatus = None,
               grams = Some(200),
@@ -401,9 +413,17 @@ class GetAbandonedCheckoutListSpec extends ApiSpec {
               title = Some("IPod Nano - 8GB"),
               variantId = Some(49148385),
               variantTitle = Some("Red"),
-              vendor = Some("Apple")
+              vendor = Some("Apple"),
+              giftCard = Some(false),
+              properties = Map.empty,
+              appliedDiscount = None,
+              taxLines = List.empty,
+              taxable = Some(true)
             ),
             LineItem(
+              id = None,
+              custom = None,
+              name = None,
               fulfillmentService = Some("manual"),
               fulfillmentStatus = None,
               grams = Some(200),
@@ -415,7 +435,12 @@ class GetAbandonedCheckoutListSpec extends ApiSpec {
               title = Some("IPod Nano - 8GB"),
               variantId = Some(808950810),
               variantTitle = Some("Pink"),
-              vendor = Some("Apple")
+              vendor = Some("Apple"),
+              giftCard = Some(false),
+              properties = Map.empty,
+              appliedDiscount = None,
+              taxLines = List.empty,
+              taxable = Some(true)
             )
           ),
           locationId = None,

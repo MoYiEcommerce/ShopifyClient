@@ -5,7 +5,7 @@ import com.moyiecomm.shopify.api.ApiSpec
 import com.moyiecomm.shopify.api.inventory.DeleteInventoryLevel
 import sttp.model.{Method, StatusCode}
 
-class DeleteInventoryLevel extends ApiSpec {
+class DeleteInventoryLevelSpec extends ApiSpec {
   it should behave like correctShopifyRequestBehaviour(
     apiRequest = DeleteInventoryLevel(808950810, 655441491),
     expectedUrl =

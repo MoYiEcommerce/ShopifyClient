@@ -13,6 +13,7 @@ case class ProductOption(
 )
 
 object ProductOption extends CirceConfig {
-  implicit val priceEncoder: Encoder[ProductOption] = deriveConfiguredEncoder[ProductOption]
+  implicit val priceEncoder: Encoder[ProductOption] =
+    deriveConfiguredEncoder[ProductOption].mapJson(_.dropEmptyValues.dropNullValues.dropEmptyString)
   implicit val priceDecoder: Decoder[ProductOption] = deriveConfiguredDecoder[ProductOption]
 }

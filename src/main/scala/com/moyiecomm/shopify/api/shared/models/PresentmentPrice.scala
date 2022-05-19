@@ -8,6 +8,7 @@ case class PresentmentPrice(price: Price, compareAtPrice: Option[Price])
 
 object PresentmentPrice extends CirceConfig {
 
-  implicit val presentmentPriceEncoder: Encoder[PresentmentPrice] = deriveConfiguredEncoder[PresentmentPrice]
+  implicit val presentmentPriceEncoder: Encoder[PresentmentPrice] =
+    deriveConfiguredEncoder[PresentmentPrice].mapJson(_.dropEmptyValues.dropNullValues.dropEmptyString.deepDropNullValues)
   implicit val presentmentPriceDecoder: Decoder[PresentmentPrice] = deriveConfiguredDecoder[PresentmentPrice]
 }

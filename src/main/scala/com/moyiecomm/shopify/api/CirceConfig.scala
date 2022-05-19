@@ -1,6 +1,6 @@
 package com.moyiecomm.shopify.api
 
-import io.circe.Json
+import io.circe.{Json, JsonNumber, JsonObject}
 import io.circe.generic.extras.Configuration
 
 trait CirceConfig {
@@ -15,5 +15,30 @@ trait CirceConfig {
     })
 
     def dropField(filedName: String): Json = jsObject.mapObject(_.filter { case (k, _) => k != filedName })
+
+    def deepDropEmptyString: Json = {
+      val folder = new Json.Folder[Json] {
+        def onNull: Json                      = Json.Null
+        def onBoolean(value: Boolean): Json   = Json.fromBoolean(value)
+        def onNumber(value: JsonNumber): Json = Json.fromJsonNumber(value)
+        def onString(value: String): Json = {
+          if (value.nonEmpty) {
+            Json.fromString(value)
+          } else {
+            Json.Null
+          }
+        }
+        def onArray(value: Vector[Json]): Json =
+          Json.fromValues(value.collect {
+            case v if !v.isNull => v.foldWith(this)
+          })
+        def onObject(value: JsonObject): Json =
+          Json.fromJsonObject(
+            value.filter { case (_, v) => !v.isNull }.mapValues(_.foldWith(this))
+          )
+      }
+
+      jsObject.foldWith(folder)
+    }
   }
 }
