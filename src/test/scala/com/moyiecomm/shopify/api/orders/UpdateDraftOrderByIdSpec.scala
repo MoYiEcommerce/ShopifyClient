@@ -6,11 +6,11 @@ import com.moyiecomm.shopify.api.orders.models.DraftOrder
 import com.moyiecomm.shopify.api.shared.models.{AppliedDiscount, LineItem, TaxLine}
 import sttp.model.{Method, StatusCode}
 
-class CreateDraftOrderSpec extends ApiSpec {
+class UpdateDraftOrderByIdSpec extends ApiSpec {
   it should behave like correctShopifyRequestBehaviour(
-    apiRequest = CreateDraftOrder(
+    apiRequest = UpdateDraftOrderById(
       DraftOrder(
-        id = None,
+        id = Some(994118539),
         orderId = None,
         name = None,
         customer = None,
@@ -71,25 +71,25 @@ class CreateDraftOrderSpec extends ApiSpec {
         completedAt = None
       )
     ),
-    expectedUrl = s"http://localhost:$port/admin/api/2022-01/draft_orders.json",
-    expectedMethod = Method.POST,
+    expectedUrl = s"http://localhost:$port/admin/api/2022-01/draft_orders/994118539.json",
+    expectedMethod = Method.PUT,
     expectedRequestBody = Some(
-      """{"draft_order":{"line_items":[{"title":"Custom Tee","price":"20.0","quantity":1,"applied_discount":{"description":"Custom discount","value_type":"percentage","value":"10.0","amount":"2.0","title":"Custom"}}]}}"""
+      """{"draft_order":{"id":994118539,"line_items":[{"title":"Custom Tee","price":"20.0","quantity":1,"applied_discount":{"description":"Custom discount","value_type":"percentage","value":"10.0","amount":"2.0","title":"Custom"}}]}}"""
     ),
-    mapping = post("/admin/api/2022-01/draft_orders.json")
+    mapping = put("/admin/api/2022-01/draft_orders/994118539.json")
       .withBasicAuth("testKeyId", "testKeySecret")
       .withRequestBody(
         equalToJson(
-          """{"draft_order":{"line_items":[{"title":"Custom Tee","price":"20.0","quantity":1,"applied_discount":{"description":"Custom discount","value_type":"percentage","value":"10.0","amount":"2.0","title":"Custom"}}]}}"""
+          """{"draft_order":{"id":994118539,"line_items":[{"title":"Custom Tee","price":"20.0","quantity":1,"applied_discount":{"description":"Custom discount","value_type":"percentage","value":"10.0","amount":"2.0","title":"Custom"}}]}}"""
         )
       )
       .willReturn(
         aResponse()
-          .withStatus(201)
+          .withStatus(202)
           .withBody("""
                       |{
                       |  "draft_order": {
-                      |    "id": 1069920476,
+                      |    "id": 994118539,
                       |    "note": null,
                       |    "email": null,
                       |    "taxes_included": false,
@@ -233,10 +233,10 @@ class CreateDraftOrderSpec extends ApiSpec {
                       |}
                       |""".stripMargin)
       ),
-    expectedStatusCode = StatusCode.Created,
+    expectedStatusCode = StatusCode.Accepted,
     expectedResponseBody = Some(
       DraftOrder(
-        id = Some(1069920476),
+        id = Some(994118539),
         orderId = None,
         name = Some("#D5"),
         customer = None,

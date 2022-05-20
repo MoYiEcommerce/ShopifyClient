@@ -6,90 +6,21 @@ import com.moyiecomm.shopify.api.orders.models.DraftOrder
 import com.moyiecomm.shopify.api.shared.models.{AppliedDiscount, LineItem, TaxLine}
 import sttp.model.{Method, StatusCode}
 
-class CreateDraftOrderSpec extends ApiSpec {
+class CompleteDraftOrderByIdSpec extends ApiSpec {
   it should behave like correctShopifyRequestBehaviour(
-    apiRequest = CreateDraftOrder(
-      DraftOrder(
-        id = None,
-        orderId = None,
-        name = None,
-        customer = None,
-        shippingAddress = None,
-        billingAddress = None,
-        note = None,
-        noteAttributes = List.empty,
-        email = None,
-        currency = None,
-        invoiceUrl = None,
-        invoiceSentAt = None,
-        lineItems = List(
-          LineItem(
-            id = None,
-            custom = None,
-            name = None,
-            fulfillmentService = None,
-            fulfillmentStatus = None,
-            grams = None,
-            price = 20.00,
-            productId = None,
-            quantity = 1,
-            requiresShipping = None,
-            sku = None,
-            title = Some("Custom Tee"),
-            variantId = None,
-            variantTitle = None,
-            vendor = None,
-            giftCard = None,
-            properties = List.empty,
-            appliedDiscount = Some(
-              AppliedDiscount(
-                title = Some("Custom"),
-                description = Some("Custom discount"),
-                value = "10.0",
-                valueType = "percentage",
-                amount = 2
-              )
-            ),
-            taxLines = List.empty,
-            taxable = None
-          )
-        ),
-        paymentTerms = None,
-        shippingLine = None,
-        tags = "",
-        taxExempt = None,
-        taxExemptions = List.empty,
-        taxLines = List.empty,
-        appliedDiscount = None,
-        taxesIncluded = None,
-        totalTax = None,
-        subtotalPrice = None,
-        totalPrice = None,
-        status = None,
-        createdAt = None,
-        updatedAt = None,
-        completedAt = None
-      )
-    ),
-    expectedUrl = s"http://localhost:$port/admin/api/2022-01/draft_orders.json",
-    expectedMethod = Method.POST,
-    expectedRequestBody = Some(
-      """{"draft_order":{"line_items":[{"title":"Custom Tee","price":"20.0","quantity":1,"applied_discount":{"description":"Custom discount","value_type":"percentage","value":"10.0","amount":"2.0","title":"Custom"}}]}}"""
-    ),
-    mapping = post("/admin/api/2022-01/draft_orders.json")
+    apiRequest = CompleteDraftOrderById(994118539),
+    expectedUrl = s"http://localhost:$port/admin/api/2022-01/draft_orders/994118539/complete.json",
+    expectedMethod = Method.PUT,
+    expectedRequestBody = None,
+    mapping = put("/admin/api/2022-01/draft_orders/994118539/complete.json")
       .withBasicAuth("testKeyId", "testKeySecret")
-      .withRequestBody(
-        equalToJson(
-          """{"draft_order":{"line_items":[{"title":"Custom Tee","price":"20.0","quantity":1,"applied_discount":{"description":"Custom discount","value_type":"percentage","value":"10.0","amount":"2.0","title":"Custom"}}]}}"""
-        )
-      )
       .willReturn(
         aResponse()
-          .withStatus(201)
+          .withStatus(202)
           .withBody("""
                       |{
                       |  "draft_order": {
-                      |    "id": 1069920476,
+                      |    "id": 994118539,
                       |    "note": null,
                       |    "email": null,
                       |    "taxes_included": false,
@@ -233,10 +164,10 @@ class CreateDraftOrderSpec extends ApiSpec {
                       |}
                       |""".stripMargin)
       ),
-    expectedStatusCode = StatusCode.Created,
+    expectedStatusCode = StatusCode.Accepted,
     expectedResponseBody = Some(
       DraftOrder(
-        id = Some(1069920476),
+        id = Some(994118539),
         orderId = None,
         name = Some("#D5"),
         customer = None,

@@ -415,7 +415,7 @@ class GetAbandonedCheckoutListSpec extends ApiSpec {
               variantTitle = Some("Red"),
               vendor = Some("Apple"),
               giftCard = Some(false),
-              properties = Map.empty,
+              properties = List.empty,
               appliedDiscount = None,
               taxLines = List.empty,
               taxable = Some(true)
@@ -437,7 +437,7 @@ class GetAbandonedCheckoutListSpec extends ApiSpec {
               variantTitle = Some("Pink"),
               vendor = Some("Apple"),
               giftCard = Some(false),
-              properties = Map.empty,
+              properties = List.empty,
               appliedDiscount = None,
               taxLines = List.empty,
               taxable = Some(true)

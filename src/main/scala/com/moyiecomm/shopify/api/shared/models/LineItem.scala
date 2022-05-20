@@ -1,6 +1,6 @@
 package com.moyiecomm.shopify.api.shared.models
 
-import com.moyiecomm.shopify.api.{CirceConfig, CustomizedBaseTypeEncoder, CustomizedStringMapDecoder}
+import com.moyiecomm.shopify.api.{CirceConfig, CustomizedBaseTypeEncoder, CustomizedListDecoder}
 import io.circe._
 import io.circe.generic.extras.semiauto._
 
@@ -21,13 +21,13 @@ case class LineItem(
     variantTitle: Option[String],
     vendor: Option[String],
     giftCard: Option[Boolean],
-    properties: Map[String, String],
+    properties: List[(String, String)],
     appliedDiscount: Option[AppliedDiscount],
     taxLines: List[TaxLine],
     taxable: Option[Boolean]
 )
 
-object LineItem extends CirceConfig with CustomizedBaseTypeEncoder with CustomizedStringMapDecoder {
+object LineItem extends CirceConfig with CustomizedBaseTypeEncoder with CustomizedListDecoder {
   implicit val lineItemEncoder: Encoder[LineItem] = deriveConfiguredEncoder[LineItem].mapJson(
     _.dropEmptyValues.dropNullValues.dropEmptyString.deepDropNullValues.deepDropEmptyString
   )
