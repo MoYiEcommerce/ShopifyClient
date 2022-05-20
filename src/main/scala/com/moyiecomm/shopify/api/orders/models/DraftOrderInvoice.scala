@@ -9,6 +9,8 @@ import io.circe.{Decoder, Encoder, HCursor, Json}
 case class DraftOrderInvoice(to: String, from: String, bcc: List[String], subject: String, customMessage: String)
 
 object DraftOrderInvoice extends CirceConfig {
+  lazy val defaultDraftOrderInvoice: DraftOrderInvoice = DraftOrderInvoice("", "", List.empty, "", "")
+
   val draftOrderInvoiceEncoder: Encoder[DraftOrderInvoice] = new Encoder[DraftOrderInvoice] {
     override def apply(a: DraftOrderInvoice): Json = Json.obj(
       (
@@ -17,8 +19,8 @@ object DraftOrderInvoice extends CirceConfig {
           .fromJsonObject(a.asJsonObject(deriveConfiguredEncoder))
           .dropNullValues
           .dropEmptyValues
-          .deepDropNullValues
           .dropEmptyString
+          .deepDropNullValues
       )
     )
   }
