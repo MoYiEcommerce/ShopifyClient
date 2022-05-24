@@ -1,6 +1,6 @@
 package com.moyiecomm.shopify.api.tenderTransaction
 
-import com.moyiecomm.shopify.api.orders.models.PaymentDetail
+import com.moyiecomm.shopify.api.shared.models.PaymentDetail
 
 case class TenderTransaction(
     id: Long,

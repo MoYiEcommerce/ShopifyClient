@@ -3,7 +3,7 @@ package com.moyiecomm.shopify.api
 import io.circe.Decoder.Result
 import io.circe.{ACursor, Decoder, DecodingFailure, FailedCursor, HCursor}
 
-trait CustomizedListDecoder {
+trait CustomizedCollectionCodec {
   implicit def decodeList[A](implicit decodeA: Decoder[A]): Decoder[List[A]] = new Decoder[List[A]] {
     override def apply(c: HCursor): Result[List[A]] = tryDecode(c)
 

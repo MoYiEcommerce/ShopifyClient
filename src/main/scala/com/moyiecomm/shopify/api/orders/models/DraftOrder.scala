@@ -1,6 +1,6 @@
 package com.moyiecomm.shopify.api.orders.models
 
-import com.moyiecomm.shopify.api.{CirceConfig, CustomizedListDecoder}
+import com.moyiecomm.shopify.api.{CirceConfig, CustomizedCollectionCodec}
 import com.moyiecomm.shopify.api.customers.models.{Address, Customer}
 import com.moyiecomm.shopify.api.shared.models.{AppliedDiscount, LineItem, NoteAttribute, PaymentTerms, ShippingLine, TaxLine}
 import io.circe.generic.extras.semiauto.deriveConfiguredEncoder
@@ -42,7 +42,7 @@ case class DraftOrder(
     completedAt: Option[ZonedDateTime]
 )
 
-object DraftOrder extends CirceConfig with CustomizedListDecoder {
+object DraftOrder extends CirceConfig with CustomizedCollectionCodec {
   val draftOrderEncoder: Encoder[DraftOrder] = {
     implicit val addressEncoder: Encoder[Address]   = deriveConfiguredEncoder[Address]
     implicit val customerEncoder: Encoder[Customer] = deriveConfiguredEncoder[Customer]

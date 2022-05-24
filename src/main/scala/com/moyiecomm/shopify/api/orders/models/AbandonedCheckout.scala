@@ -1,6 +1,6 @@
 package com.moyiecomm.shopify.api.orders.models
 
-import com.moyiecomm.shopify.api.{CirceConfig, CustomizedListDecoder}
+import com.moyiecomm.shopify.api.{CirceConfig, CustomizedCollectionCodec}
 import com.moyiecomm.shopify.api.customers.models.{Address, Customer}
 import com.moyiecomm.shopify.api.discounts.models.DiscountCode
 import com.moyiecomm.shopify.api.shared.models.{LineItem, NoteAttribute, ShippingLine, TaxLine}
@@ -53,7 +53,7 @@ case class AbandonedCheckout(
     userId: Option[Long]
 )
 
-object AbandonedCheckout extends CirceConfig with CustomizedListDecoder {
+object AbandonedCheckout extends CirceConfig with CustomizedCollectionCodec {
   val abandonedCheckoutListDecoder: Decoder[List[AbandonedCheckout]] = {
     implicit val addressDecoder: Decoder[Address]                     = deriveConfiguredDecoder[Address]
     implicit val discountCodeDecoder: Decoder[DiscountCode]           = deriveConfiguredDecoder[DiscountCode]

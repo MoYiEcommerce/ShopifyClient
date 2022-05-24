@@ -4,7 +4,7 @@ import com.moyiecomm.shopify.api.CirceConfig
 import io.circe.Decoder.Result
 import io.circe.generic.extras.semiauto._
 import io.circe.syntax._
-import io.circe.{Decoder, Encoder, HCursor, Json}
+import io.circe._
 
 case class DraftOrderInvoice(to: String, from: String, bcc: List[String], subject: String, customMessage: String)
 
