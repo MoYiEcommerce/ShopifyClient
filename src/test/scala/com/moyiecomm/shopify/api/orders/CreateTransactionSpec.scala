@@ -32,7 +32,8 @@ class CreateTransactionSpec extends ApiSpec {
         authorizationExpiresAt = None,
         deviceId = None,
         errorCode = None,
-        extendedAuthorizationAttributes = None
+        extendedAuthorizationAttributes = None,
+        maximumRefundable = None
       )
     ),
     expectedUrl = s"http://localhost:$port/admin/api/2022-01/orders/450789469/transactions.json",
@@ -124,7 +125,8 @@ class CreateTransactionSpec extends ApiSpec {
         authorizationExpiresAt = None,
         deviceId = None,
         errorCode = None,
-        extendedAuthorizationAttributes = None
+        extendedAuthorizationAttributes = None,
+        maximumRefundable = None
       )
     )
   )

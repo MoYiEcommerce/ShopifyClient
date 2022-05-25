@@ -1,5 +1,9 @@
 package com.moyiecomm.shopify.api.shared.models
 
+import com.moyiecomm.shopify.api.CirceConfig
+import io.circe._
+import io.circe.generic.extras.semiauto._
+
 case class OrderAdjustment(
     id: Long,
     orderId: Long,
@@ -11,3 +15,8 @@ case class OrderAdjustment(
     amountSet: AmountSet,
     taxAmountSet: AmountSet
 )
+
+object OrderAdjustment extends CirceConfig {
+  implicit val orderAdjustmentEncoder: Encoder[OrderAdjustment] = deriveConfiguredEncoder[OrderAdjustment]
+  implicit val orderAdjustmentDecoder: Decoder[OrderAdjustment] = deriveConfiguredDecoder[OrderAdjustment]
+}

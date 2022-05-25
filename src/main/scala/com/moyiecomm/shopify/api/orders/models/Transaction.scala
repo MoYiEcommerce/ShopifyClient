@@ -31,7 +31,8 @@ case class Transaction(
     paymentsRefundAttributes: Option[PaymentRefundAttribute],
     currency: Option[String],
     authorizationExpiresAt: Option[Long],
-    extendedAuthorizationAttributes: Option[ExtendedAuthorizationAttribute]
+    extendedAuthorizationAttributes: Option[ExtendedAuthorizationAttribute],
+    maximumRefundable: Option[Double]
 )
 
 object Transaction extends CirceConfig with CustomizedCollectionCodec {

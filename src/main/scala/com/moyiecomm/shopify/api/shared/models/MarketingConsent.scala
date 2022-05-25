@@ -1,8 +1,8 @@
 package com.moyiecomm.shopify.api.shared.models
 
 import com.moyiecomm.shopify.api.CirceConfig
-import io.circe.{Decoder, Encoder}
-import io.circe.generic.extras.semiauto.{deriveConfiguredDecoder, deriveConfiguredEncoder}
+import io.circe._
+import io.circe.generic.extras.semiauto._
 
 import java.time.ZonedDateTime
 

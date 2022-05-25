@@ -110,7 +110,8 @@ class GetTransactionListSpec extends ApiSpec {
           authorizationExpiresAt = None,
           deviceId = None,
           errorCode = None,
-          extendedAuthorizationAttributes = None
+          extendedAuthorizationAttributes = None,
+          maximumRefundable = None
         ),
         Transaction(
           id = Some(389404469),
@@ -143,7 +144,8 @@ class GetTransactionListSpec extends ApiSpec {
           authorizationExpiresAt = None,
           deviceId = None,
           errorCode = None,
-          extendedAuthorizationAttributes = None
+          extendedAuthorizationAttributes = None,
+          maximumRefundable = None
         )
       )
     )

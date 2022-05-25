@@ -92,7 +92,8 @@ class GetTransactionByIdSpec extends ApiSpec {
         authorizationExpiresAt = None,
         deviceId = None,
         errorCode = None,
-        extendedAuthorizationAttributes = None
+        extendedAuthorizationAttributes = None,
+        maximumRefundable = None
       )
     )
   )

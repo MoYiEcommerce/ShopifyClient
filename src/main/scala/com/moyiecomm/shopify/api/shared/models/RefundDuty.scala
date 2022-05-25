@@ -7,6 +7,6 @@ import io.circe.generic.extras.semiauto._
 case class RefundDuty(dutyId: Long, refundType: String)
 
 object RefundDuty extends CirceConfig {
-  val refundDutyEncoder: Encoder[RefundDuty] = deriveConfiguredEncoder[RefundDuty]
-  val refundDutyDecoder: Decoder[RefundDuty] = deriveConfiguredDecoder[RefundDuty]
+  implicit val refundDutyEncoder: Encoder[RefundDuty] = deriveConfiguredEncoder[RefundDuty]
+  implicit val refundDutyDecoder: Decoder[RefundDuty] = deriveConfiguredDecoder[RefundDuty]
 }
