@@ -21,7 +21,7 @@ case class LineItem(
     variantTitle: Option[String],
     vendor: Option[String],
     giftCard: Option[Boolean],
-    properties: List[(String, String)],
+    properties: List[NoteAttribute],
     appliedDiscount: Option[AppliedDiscount],
     taxLines: List[TaxLine],
     taxable: Option[Boolean]
@@ -32,6 +32,4 @@ object LineItem extends CirceConfig with CustomizedBaseTypeEncoder with Customiz
     _.dropEmptyValues.dropNullValues.dropEmptyString.deepDropNullValues.deepDropEmptyString
   )
   implicit val lineItemDecoder: Decoder[LineItem] = deriveConfiguredDecoder[LineItem]
-
-  Decoder.decodeOption
 }

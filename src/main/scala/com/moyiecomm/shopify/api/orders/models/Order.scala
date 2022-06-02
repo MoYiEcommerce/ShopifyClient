@@ -1,98 +1,133 @@
 package com.moyiecomm.shopify.api.orders.models
 
+import com.moyiecomm.shopify.api.{CirceConfig, CustomizedCollectionCodec}
 import com.moyiecomm.shopify.api.customers.models.{Address, Customer}
 import com.moyiecomm.shopify.api.discounts.models.DiscountCode
-import com.moyiecomm.shopify.api.orders.models.Order._
-import com.moyiecomm.shopify.api.shared.models.{LineItem, NoteAttribute, PaymentTerms, ShippingLine, TaxLine, PaymentDetail}
+import com.moyiecomm.shopify.api.shared.models.{
+  AmountSet,
+  ClientDetails,
+  DiscountApplication,
+  LineItem,
+  NoteAttribute,
+  PaymentDetail,
+  PaymentTerms,
+  ShippingLine,
+  TaxLine
+}
+import com.moyiecomm.shopify.api.shippingFulfillment.Fulfillment
+import io.circe.Decoder.Result
+import io.circe._
+import io.circe.generic.extras.semiauto._
+
+import java.time.ZonedDateTime
 
 case class Order(
-    appId: Long,
-    billingAddress: Address,
-    browserIp: String,
-    buyerAcceptsMarketing: Boolean,
-    cancelReason: String,
-    cancelledAt: Long,
-    cartToken: String,
-    clientDetails: ClientDetails,
-    closedAt: Long,
-    createdAt: Long,
-    currency: String,
-    currentTotalDiscounts: String,
-    currentTotalDiscountsSet: CurrentTotalDiscountsSet,
-    currentTotalDutiesSet: CurrentTotalDutiesSet,
-    currentTotalPrice: String,
-    currentTotalPriceSet: CurrentTotalPriceSet,
-    currentSubtotalPrice: String,
-    currentSubtotalPriceSet: CurrentSubtotalPriceSet,
-    currentTotalTax: String,
-    currentTotalTaxSet: CurrentTotalTaxSet,
-    customer: Customer,
-    customerLocale: String,
-    discountApplications: List[DiscountApplication],
+    id: Option[Long],
+    appId: Option[Long],
+    browserIp: Option[String],
+    buyerAcceptsMarketing: Option[Boolean],
+    cancelReason: Option[String],
+    cancelledAt: Option[ZonedDateTime],
+    cartToken: Option[String],
+    clientDetails: Option[ClientDetails],
+    closedAt: Option[ZonedDateTime],
+    createdAt: Option[ZonedDateTime],
+    currency: Option[String],
+    currentSubtotalPrice: Option[String],
+    currentSubtotalPriceSet: Option[AmountSet],
+    currentTotalDiscounts: Option[String],
+    currentTotalDiscountsSet: Option[AmountSet],
+    currentTotalDutiesSet: Option[AmountSet],
+    currentTotalPrice: Option[String],
+    currentTotalPriceSet: Option[AmountSet],
+    currentTotalTax: Option[String],
+    currentTotalTaxSet: Option[AmountSet],
+    customerLocale: Option[String],
     discountCodes: List[DiscountCode],
-    email: String,
-    estimatedTaxes: Boolean,
-    financialStatus: String,
-    fulfillments: List[Fullfillment],
-    fulfillmentStatus: String,
-    id: Long,
-    landingSite: String,
-    lineItems: List[LineItem],
-    locationId: Long,
-    name: String,
-    note: String,
+    email: Option[String],
+    estimatedTaxes: Option[Boolean],
+    financialStatus: Option[String],
+    fulfillmentStatus: Option[String],
+    landingSite: Option[String],
+    locationId: Option[Long],
+    name: Option[String],
+    note: Option[String],
     noteAttributes: List[NoteAttribute],
-    number: Int,
-    orderNumber: Int,
-    originalTotalDutiesSet: OriginalTotalDutiesSet,
-    paymentDetails: PaymentDetail,
-    paymentTerms: PaymentTerms,
-    phone: String,
-    presentmentCurrency: String,
-    processedAt: Long,
-    processingMethod: String,
-    referringSite: String,
-    refunds: List[Refund],
-    shippingAddress: Address,
-    shippingLInes: List[ShippingLine],
-    sourceName: String,
-    subtotalPrice: String,
-    subtotalPriceSet: SubtotalPriceSet,
-    tags: String,
+    number: Option[Int],
+    orderNumber: Option[Int],
+    orderStatusUrl: Option[String],
+    originalTotalDutiesSet: Option[AmountSet],
+    phone: Option[String],
+    presentmentCurrency: Option[String],
+    processedAt: Option[ZonedDateTime],
+    processingMethod: Option[String],
+    referringSite: Option[String],
+    sourceName: Option[String],
+    subtotalPrice: Option[String],
+    subtotalPriceSet: Option[AmountSet],
+    tags: Option[String],
     taxLines: List[TaxLine],
-    taxesIncluded: Boolean,
-    test: Boolean,
-    token: String,
-    totalDiscounts: String,
-    totalDiscountsSet: TotalDiscountsSet,
-    totalLineItemPrice: String,
-    totalLineItemPriceSet: TotalLineItemPriceSet,
-    totalPrice: String,
-    totalPriceSet: TotalPriceSet,
-    totalShippingPriceSet: TotalShippingPriceSet,
-    totalTax: String,
-    totalTaxSet: TotalTaxSet,
-    total_tip_received: String,
-    total_weight: String,
-    updated_at: Long,
-    userId: Long,
-    orderStatusUrl: String
+    taxesIncluded: Option[Boolean],
+    test: Option[Boolean],
+    token: Option[String],
+    totalDiscounts: Option[String],
+    totalDiscountsSet: Option[AmountSet],
+    totalLineItemsPrice: Option[String],
+    totalLineItemsPriceSet: Option[AmountSet],
+    totalPrice: Option[String],
+    totalPriceSet: Option[AmountSet],
+    totalShippingPriceSet: Option[AmountSet],
+    totalTax: Option[String],
+    totalTaxSet: Option[AmountSet],
+    totalTipReceived: Option[String],
+    totalWeight: Option[Double],
+    updatedAt: Option[ZonedDateTime],
+    userId: Option[Long],
+    billingAddress: Option[Address],
+    customer: Option[Customer],
+    discountApplications: List[DiscountApplication],
+    fulfillments: List[Fulfillment],
+    lineItems: List[LineItem],
+    paymentDetails: Option[PaymentDetail],
+    refunds: List[Refund],
+    shippingAddress: Option[Address],
+    shippingLines: List[ShippingLine],
+    paymentTerms: Option[PaymentTerms]
 )
 
-object Order {
-  case class ClientDetails()
-  case class CurrentTotalDiscountsSet()
-  case class CurrentTotalDutiesSet()
-  case class CurrentTotalPriceSet()
-  case class CurrentSubtotalPriceSet()
-  case class CurrentTotalTaxSet()
-  case class DiscountApplication()
-  case class Fullfillment()
-  case class OriginalTotalDutiesSet()
-  case class SubtotalPriceSet()
-  case class TotalDiscountsSet()
-  case class TotalLineItemPriceSet()
-  case class TotalPriceSet()
-  case class TotalShippingPriceSet()
-  case class TotalTaxSet()
+object Order extends CirceConfig with CustomizedCollectionCodec {
+  val orderEncoder: Encoder[Order] = {
+    implicit val addressEncoder: Encoder[Address]           = deriveConfiguredEncoder[Address]
+    implicit val customerEncoder: Encoder[Customer]         = deriveConfiguredEncoder[Customer]
+    implicit val discountCodeEncoder: Encoder[DiscountCode] = deriveConfiguredEncoder[DiscountCode]
+    implicit val transactionEncoder: Encoder[Transaction]   = deriveConfiguredEncoder[Transaction]
+    implicit val fulfillmentEncoder: Encoder[Fulfillment]   = deriveConfiguredEncoder[Fulfillment]
+    implicit val refundEncoder: Encoder[Refund]             = deriveConfiguredEncoder[Refund]
+    deriveConfiguredEncoder[Order].mapJson(json =>
+      Json.obj(("order", json.dropEmptyValues.dropNullValues.dropEmptyString.deepDropNullValues))
+    )
+  }
+
+  val orderDecoder: Decoder[Order] = {
+    implicit val addressDecoder: Decoder[Address]           = deriveConfiguredDecoder[Address]
+    implicit val discountCodeDecoder: Decoder[DiscountCode] = deriveConfiguredDecoder[DiscountCode]
+    implicit val customerDecoder: Decoder[Customer]         = deriveConfiguredDecoder[Customer]
+    implicit val transactionDecoder: Decoder[Transaction]   = deriveConfiguredDecoder[Transaction]
+    implicit val fulfillmentDecoder: Decoder[Fulfillment]   = deriveConfiguredDecoder[Fulfillment]
+    implicit val refundDecoder: Decoder[Refund]             = deriveConfiguredDecoder[Refund]
+    deriveConfiguredDecoder[Order].prepare(_.downField("order"))
+  }
+
+  val orderListDecoder: Decoder[List[Order]] = {
+    implicit val addressDecoder: Decoder[Address]           = deriveConfiguredDecoder[Address]
+    implicit val discountCodeDecoder: Decoder[DiscountCode] = deriveConfiguredDecoder[DiscountCode]
+    implicit val customerDecoder: Decoder[Customer]         = deriveConfiguredDecoder[Customer]
+    implicit val transactionDecoder: Decoder[Transaction]   = deriveConfiguredDecoder[Transaction]
+    implicit val fulfillmentDecoder: Decoder[Fulfillment]   = deriveConfiguredDecoder[Fulfillment]
+    implicit val refundDecoder: Decoder[Refund]             = deriveConfiguredDecoder[Refund]
+    implicit val orderDecoder: Decoder[Order]               = deriveConfiguredDecoder[Order]
+    new Decoder[List[Order]] {
+      override def apply(c: HCursor): Result[List[Order]] = c.get[List[Order]]("orders")
+    }
+  }
 }
