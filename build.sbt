@@ -1,6 +1,9 @@
 lazy val root = (project in file("."))
   .settings(
-    name := "ShopifyClient",
+    name              := "ShopifyClient",
+    githubOwner       := "MoYiEcommerce",
+    githubRepository  := "ShopifyClient",
+    githubTokenSource := TokenSource.Or(TokenSource.GitConfig("github.token"), TokenSource.Environment("PUBLISH_TOKEN")),
     inThisBuild(
       List(
         scalaVersion                                   := "2.13.7",

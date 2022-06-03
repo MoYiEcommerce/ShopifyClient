@@ -23,3 +23,5 @@ jobs:
         distribution: 'corretto'
     - name: Run tests
       run: sbt test
+    - name: Publish package
+      run: sbt publish
