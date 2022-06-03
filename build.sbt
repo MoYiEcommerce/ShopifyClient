@@ -7,7 +7,7 @@ lazy val root = (project in file("."))
     inThisBuild(
       List(
         scalaVersion                                   := "2.13.7",
-        version                                        := "0.1.0-SNAPSHOT",
+        version                                        := "0.1.1-SNAPSHOT",
         organization                                   := "com.moyiecomm",
         semanticdbEnabled                              := true,
         semanticdbVersion                              := scalafixSemanticdb.revision,
@@ -28,5 +28,3 @@ lazy val root = (project in file("."))
 //    scalacOptions += "-Wunused",
     Test / parallelExecution := false
   )
-
-// See https://www.scala-sbt.org/1.x/docs/Using-Sonatype.html for instructions on how to publish to Sonatype.
