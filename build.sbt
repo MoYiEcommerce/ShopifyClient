@@ -15,13 +15,13 @@ lazy val root = (project in file("."))
       )
     ),
     libraryDependencies ++= Seq(
-      "com.softwaremill.sttp.client3" %% "core"                             % "3.4.1",
-      "com.softwaremill.sttp.client3" %% "circe"                            % "3.4.1",
+      "com.softwaremill.sttp.client3" %% "core"                             % "3.9.0",
+      "com.softwaremill.sttp.client3" %% "circe"                            % "3.9.0",
       "io.circe"                      %% "circe-generic"                    % "0.14.1",
       "io.circe"                      %% "circe-generic-extras"             % "0.14.1",
       "com.typesafe"                   % "config"                           % "1.4.1",
-      "org.scalatest"                 %% "scalatest"                        % "3.2.9"  % Test,
-      "com.github.tomakehurst"         % "wiremock"                         % "2.27.2" % Test,
+      "org.scalatest"                 %% "scalatest"                        % "3.2.17" % Test,
+      "org.wiremock"                   % "wiremock"                         % "3.2.0"  % Test,
       "com.softwaremill.sttp.client3" %% "async-http-client-backend-future" % "3.4.1"  % Test,
       "io.circe"                      %% "circe-parser"                     % "0.14.1" % Test
     ),
