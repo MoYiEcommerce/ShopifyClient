@@ -1,16 +1,15 @@
 package com.moyiecomm.shopify.api.requests
 
-import com.moyiecomm.shopify.api.RequestSpec
-import com.moyiecomm.shopify.api.json.product.Collect.ProductToCollection
-import com.moyiecomm.shopify.api.requests.product.AddProductToCollect
-import RequestSpec.httpBackend
-import com.github.tomakehurst.wiremock.client.WireMock._
-import com.moyiecomm.shopify.api.json.product.Collect
-import sttp.model.StatusCode
-
 import java.time.ZonedDateTime
 
-class CollectRequestsSpec extends RequestSpec {
+import com.github.tomakehurst.wiremock.client.WireMock._
+import com.moyiecomm.shopify.api.RequestSpec
+import com.moyiecomm.shopify.api.json.product.Collect
+import com.moyiecomm.shopify.api.json.product.Collect.ProductToCollection
+import com.moyiecomm.shopify.api.requests.product.AddProductToCollect
+import sttp.model.StatusCode
+
+class AddProductToCollectSpec extends RequestSpec {
   it should behave like correctRequestResponse(
     mockRequest = post("/admin/api/2023-10/collects.json")
       .withHeader("Content-Type", equalTo("application/json; charset=UTF-8"))

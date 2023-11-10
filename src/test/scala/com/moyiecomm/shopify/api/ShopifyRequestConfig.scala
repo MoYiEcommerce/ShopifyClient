@@ -1,7 +1,7 @@
 package com.moyiecomm.shopify.api
 
 import com.moyiecomm.shopify.UnitSpec
-import com.moyiecomm.shopify.api.requests.ShopifyRequest
+import com.moyiecomm.shopify.api.builder.ShopifyRequest
 import com.typesafe.config.ConfigFactory
 
 class ShopifyRequestConfig extends UnitSpec {

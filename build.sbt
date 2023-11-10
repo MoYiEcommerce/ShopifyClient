@@ -25,6 +25,6 @@ lazy val root = (project in file("."))
       "com.softwaremill.sttp.client3" %% "async-http-client-backend-future" % "3.4.1"  % Test,
       "io.circe"                      %% "circe-parser"                     % "0.14.1" % Test
     ),
-//    scalacOptions += "-Wunused",
+    scalacOptions += "-Wunused",
     Test / parallelExecution := false
   )

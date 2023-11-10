@@ -1,7 +1,9 @@
 package com.moyiecomm.shopify.api.json
 
+import io.circe.Decoder
+import io.circe.Encoder
+import io.circe.Json
 import io.circe.syntax.EncoderOps
-import io.circe.{Decoder, Encoder, Json}
 
 trait CustomizedBaseTypeEncoder {
   implicit val doubleEncoder: Encoder[Double] = new Encoder[Double] {

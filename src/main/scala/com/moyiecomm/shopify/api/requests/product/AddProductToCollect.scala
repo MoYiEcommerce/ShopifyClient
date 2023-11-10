@@ -1,10 +1,13 @@
 package com.moyiecomm.shopify.api.requests.product
 
+import com.moyiecomm.shopify.api.builder.PostRequest
 import com.moyiecomm.shopify.api.json.product.Collect
-import com.moyiecomm.shopify.api.json.product.Collect.{ProductToCollection, collectDecoder, productToCollectionEncoder}
-import com.moyiecomm.shopify.api.requests.PostRequest
-import com.moyiecomm.shopify.api.requests.ShopifyRequest.Config
-import io.circe.{Decoder, Encoder}
+import com.moyiecomm.shopify.api.json.product.Collect.ProductToCollection
+import com.moyiecomm.shopify.api.json.product.Collect.collectDecoder
+import com.moyiecomm.shopify.api.json.product.Collect.productToCollectionEncoder
+import com.moyiecomm.shopify.api.builder.ShopifyRequest.Config
+import io.circe.Decoder
+import io.circe.Encoder
 
 case class AddProductToCollect(productToCollection: ProductToCollection, override val config: Config)
     extends PostRequest[ProductToCollection, Collect](productToCollection, config) {

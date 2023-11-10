@@ -1,8 +1,8 @@
 package com.moyiecomm.shopify.api.json.shared
 
 import com.moyiecomm.shopify.api.json.CirceConfig
-import com.moyiecomm.shopify.api.json.shared.Price
-import io.circe.{Decoder, Encoder}
+import io.circe.Decoder
+import io.circe.Encoder
 import io.circe.generic.extras.semiauto._
 
 case class PresentmentPrice(price: Price, compareAtPrice: Option[Price])

@@ -1,8 +1,9 @@
 package com.moyiecomm.shopify.api.json.shared
 
 import com.moyiecomm.shopify.api.json.CirceConfig
+import io.circe.Decoder
+import io.circe.Encoder
 import io.circe.generic.extras.semiauto._
-import io.circe.{Decoder, Encoder}
 
 case class ProductOption(
     id: Long,

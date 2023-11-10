@@ -1,13 +1,13 @@
 package com.moyiecomm.shopify.api.json.product
 
+import java.time.ZonedDateTime
+
 import com.moyiecomm.shopify.api.json.CirceConfig
 import com.moyiecomm.shopify.api.json.product.Collection.CollectionImage
 import io.circe.Decoder.Result
 import io.circe._
 import io.circe.generic.extras.semiauto._
 import io.circe.syntax._
-
-import java.time.ZonedDateTime
 
 case class Collection(
     id: Option[Long],
@@ -38,7 +38,6 @@ object Collection extends CirceConfig {
   implicit val collectionImageDecoder: Decoder[CollectionImage] = deriveConfiguredDecoder[CollectionImage]
 
   val customCollectionEncoder: Encoder[Collection] = new Encoder[Collection] {
-    implicit val collectEncoder: Encoder[Collect] = deriveConfiguredEncoder[Collect]
     override def apply(a: Collection): Json = Json.obj(
       (
         "custom_collection",
@@ -47,17 +46,13 @@ object Collection extends CirceConfig {
     )
   }
   val customCollectionListDecoder: Decoder[List[Collection]] = {
-    implicit val collectDecoder: Decoder[Collect]       = deriveConfiguredDecoder[Collect]
-    implicit val collectionDecoder: Decoder[Collection] = deriveConfiguredDecoder[Collection]
     new Decoder[List[Collection]] {
       override def apply(c: HCursor): Result[List[Collection]] =
-        c.get[List[Collection]]("custom_collections")
+        c.get[List[Collection]]("custom_collections")(Decoder.decodeList(deriveConfiguredDecoder[Collection]))
     }
   }
 
   val collectionDecoder: Decoder[Collection] = new Decoder[Collection] {
-    implicit val collectDecoder: Decoder[Collect]                 = deriveConfiguredDecoder[Collect]
-    implicit val collectionImageDecoder: Decoder[CollectionImage] = deriveConfiguredDecoder[CollectionImage]
     override def apply(c: HCursor): Result[Collection] = {
       Seq(
         c.downField("collection").focus,

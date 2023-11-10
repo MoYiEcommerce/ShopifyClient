@@ -1,9 +1,9 @@
 package com.moyiecomm.shopify.api.requests.product
 
+import com.moyiecomm.shopify.api.builder.GetRequest
 import com.moyiecomm.shopify.api.json.product.Product
 import com.moyiecomm.shopify.api.json.product.Product.productDecoder
-import com.moyiecomm.shopify.api.requests.GetRequest
-import com.moyiecomm.shopify.api.requests.ShopifyRequest.Config
+import com.moyiecomm.shopify.api.builder.ShopifyRequest.Config
 import io.circe.Decoder
 
 case class GetProductById(id: Long, override val config: Config) extends GetRequest[Product](config) {

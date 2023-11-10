@@ -1,10 +1,11 @@
 package com.moyiecomm.shopify.api.requests.product
 
-import com.moyiecomm.shopify.api.ApiResponse.Ignored
+import com.moyiecomm.shopify.api.builder.ApiResponse.Ignored
+import com.moyiecomm.shopify.api.builder.PutRequest
 import com.moyiecomm.shopify.api.json.shared.EmptyBody
-import com.moyiecomm.shopify.api.requests.PutRequest
-import com.moyiecomm.shopify.api.requests.ShopifyRequest.Config
-import io.circe.{Decoder, Encoder}
+import com.moyiecomm.shopify.api.builder.ShopifyRequest.Config
+import io.circe.Decoder
+import io.circe.Encoder
 
 case class UpdateOrderingTypeOfProductInSmartCollection(
     smartCollectionId: Long,

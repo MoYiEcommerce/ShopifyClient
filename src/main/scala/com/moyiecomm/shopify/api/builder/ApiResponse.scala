@@ -1,4 +1,4 @@
-package com.moyiecomm.shopify.api
+package com.moyiecomm.shopify.api.builder
 
 import com.moyiecomm.shopify.api.json.shared.EmptyBody
 

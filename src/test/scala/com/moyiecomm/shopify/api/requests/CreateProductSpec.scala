@@ -1,13 +1,18 @@
 package com.moyiecomm.shopify.api.requests
 
-import com.github.tomakehurst.wiremock.client.WireMock.{aResponse, equalTo, options, post}
+import java.time.ZonedDateTime
+
+import com.github.tomakehurst.wiremock.client.WireMock.aResponse
+import com.github.tomakehurst.wiremock.client.WireMock.equalTo
+import com.github.tomakehurst.wiremock.client.WireMock.post
 import com.moyiecomm.shopify.api.RequestSpec
-import com.moyiecomm.shopify.api.json.product.{Product, ProductVariant}
-import com.moyiecomm.shopify.api.json.shared.{PresentmentPrice, Price, ProductOption}
+import com.moyiecomm.shopify.api.json.product.Product
+import com.moyiecomm.shopify.api.json.product.ProductVariant
+import com.moyiecomm.shopify.api.json.shared.PresentmentPrice
+import com.moyiecomm.shopify.api.json.shared.Price
+import com.moyiecomm.shopify.api.json.shared.ProductOption
 import com.moyiecomm.shopify.api.requests.product.CreateProduct
 import sttp.model.StatusCode
-
-import java.time.ZonedDateTime
 
 class CreateProductSpec extends RequestSpec {
   it should behave like correctRequestResponse(

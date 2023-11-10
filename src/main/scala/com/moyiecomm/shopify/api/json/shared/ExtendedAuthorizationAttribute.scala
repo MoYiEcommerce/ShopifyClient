@@ -1,10 +1,10 @@
 package com.moyiecomm.shopify.api.json.shared
 
+import java.time.ZonedDateTime
+
 import com.moyiecomm.shopify.api.json.CirceConfig
 import io.circe._
 import io.circe.generic.extras.semiauto._
-
-import java.time.ZonedDateTime
 
 case class ExtendedAuthorizationAttribute(
     standardAuthorizationExpiresAt: ZonedDateTime,

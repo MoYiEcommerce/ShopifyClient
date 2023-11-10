@@ -1,7 +1,9 @@
 package com.moyiecomm.shopify.api.json
 
+import io.circe.Json
+import io.circe.JsonNumber
+import io.circe.JsonObject
 import io.circe.generic.extras.Configuration
-import io.circe.{Json, JsonNumber, JsonObject}
 
 trait CirceConfig {
   implicit val customConfig: Configuration = Configuration.default.withSnakeCaseMemberNames

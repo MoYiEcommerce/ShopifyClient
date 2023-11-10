@@ -1,12 +1,14 @@
 package com.moyiecomm.shopify.api.requests
 
-import com.github.tomakehurst.wiremock.client.WireMock.{aResponse, equalTo, post}
+import java.time.ZonedDateTime
+
+import com.github.tomakehurst.wiremock.client.WireMock.aResponse
+import com.github.tomakehurst.wiremock.client.WireMock.equalTo
+import com.github.tomakehurst.wiremock.client.WireMock.post
 import com.moyiecomm.shopify.api.RequestSpec
 import com.moyiecomm.shopify.api.json.product.Collection
 import com.moyiecomm.shopify.api.requests.product.CreateCustomCollection
 import sttp.model.StatusCode
-
-import java.time.ZonedDateTime
 
 class CreateCustomCollectionSpec extends RequestSpec {
   it should behave like correctRequestResponse(

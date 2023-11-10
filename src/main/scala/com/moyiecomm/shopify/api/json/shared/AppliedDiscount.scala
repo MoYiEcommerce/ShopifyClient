@@ -1,6 +1,7 @@
 package com.moyiecomm.shopify.api.json.shared
 
-import com.moyiecomm.shopify.api.json.{CirceConfig, CustomizedBaseTypeEncoder}
+import com.moyiecomm.shopify.api.json.CirceConfig
+import com.moyiecomm.shopify.api.json.CustomizedBaseTypeEncoder
 import io.circe._
 import io.circe.generic.extras.semiauto._
 

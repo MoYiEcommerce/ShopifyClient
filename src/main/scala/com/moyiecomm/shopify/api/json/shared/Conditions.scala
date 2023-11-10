@@ -1,8 +1,8 @@
 package com.moyiecomm.shopify.api.json.shared
 
 import com.moyiecomm.shopify.api.json.CirceConfig
-import io.circe.generic.extras.semiauto._
 import io.circe._
+import io.circe.generic.extras.semiauto._
 
 // todo {greater_than_or_equal_to: null} => None: Option[GreaterThanOrEqualTo] also for other [Condition] types
 object Conditions extends CirceConfig {

@@ -1,14 +1,10 @@
 package com.moyiecomm.shopify.api.requests.product
 
-import com.moyiecomm.shopify.api.ApiResponse.Ignored
-import com.moyiecomm.shopify.api.builder.RequestBuilder
+import com.moyiecomm.shopify.api.builder.GetRequest
 import com.moyiecomm.shopify.api.json.product.Collect
 import com.moyiecomm.shopify.api.json.product.Collect.collectListDecoder
-import com.moyiecomm.shopify.api.requests.{GetRequest, ShopifyRequest}
-import com.moyiecomm.shopify.api.requests.ShopifyRequest.Config
-import io.circe
+import com.moyiecomm.shopify.api.builder.ShopifyRequest.Config
 import io.circe.Decoder
-import sttp.client3.{Request, ResponseException, UriContext}
 
 case class GetCollectList(override val config: Config) extends GetRequest[List[Collect]](config) {
   override val path: String = "collects.json"

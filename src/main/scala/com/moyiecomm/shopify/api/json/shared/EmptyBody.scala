@@ -1,7 +1,10 @@
 package com.moyiecomm.shopify.api.json.shared
 
+import io.circe.Decoder
 import io.circe.Decoder.Result
-import io.circe.{Decoder, Encoder, HCursor, Json}
+import io.circe.Encoder
+import io.circe.HCursor
+import io.circe.Json
 
 case object EmptyBody {
   val emptyBodyEncoder: Encoder[EmptyBody.type] = new Encoder[EmptyBody.type] {

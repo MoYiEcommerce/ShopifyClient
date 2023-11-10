@@ -1,12 +1,15 @@
 package com.moyiecomm.shopify.api.json.product
 
-import com.moyiecomm.shopify.api.json.CirceConfig
-import io.circe.Decoder.Result
-import io.circe.generic.extras.semiauto._
-import io.circe.{Decoder, Encoder, HCursor, Json}
-import io.circe.syntax._
-
 import java.time.ZonedDateTime
+
+import com.moyiecomm.shopify.api.json.CirceConfig
+import io.circe.Decoder
+import io.circe.Decoder.Result
+import io.circe.Encoder
+import io.circe.HCursor
+import io.circe.Json
+import io.circe.generic.extras.semiauto._
+import io.circe.syntax._
 
 case class Collect(
     id: Long,

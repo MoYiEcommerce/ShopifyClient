@@ -1,12 +1,16 @@
 package com.moyiecomm.shopify.api.builder
 
-import com.moyiecomm.shopify.api.ApiResponse.Ignored
+import com.moyiecomm.shopify.api.builder.ApiResponse.Ignored
 import com.moyiecomm.shopify.api.json.shared.EmptyBody
 import io.circe
-import io.circe.{Decoder, Encoder}
-import sttp.client3.{Request, ResponseException, basicRequest}
+import io.circe.Decoder
+import io.circe.Encoder
+import sttp.client3.Request
+import sttp.client3.ResponseException
+import sttp.client3.basicRequest
 import sttp.client3.circe._
-import sttp.model.{MediaType, Uri}
+import sttp.model.MediaType
+import sttp.model.Uri
 
 object RequestBuilder {
   def getRequest[Rep](
