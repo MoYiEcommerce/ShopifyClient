@@ -1,10 +1,19 @@
 package com.moyiecomm.shopify.api.builder
 
-import com.moyiecomm.shopify.api.builder.ApiResponse.{ApiResponse, Error, Ignored}
+import com.moyiecomm.shopify.api.builder.ApiResponse.ApiResponse
+import com.moyiecomm.shopify.api.builder.ApiResponse.Error
+import com.moyiecomm.shopify.api.builder.ApiResponse.Ignored
 import com.moyiecomm.shopify.api.builder.ShopifyRequest.Config
 import io.circe
-import io.circe.{Decoder, Encoder}
-import sttp.client3.{DeserializationException, HttpError, Request, Response, ResponseException, SttpBackend, UriContext}
+import io.circe.Decoder
+import io.circe.Encoder
+import sttp.client3.DeserializationException
+import sttp.client3.HttpError
+import sttp.client3.Request
+import sttp.client3.Response
+import sttp.client3.ResponseException
+import sttp.client3.SttpBackend
+import sttp.client3.UriContext
 
 trait ShopifyRequest[Req, Rep] {
 

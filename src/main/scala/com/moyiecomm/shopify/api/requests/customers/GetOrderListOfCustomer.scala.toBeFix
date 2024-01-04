@@ -1,0 +1,14 @@
+package com.moyiecomm.shopify.api.v1.customers
+
+import com.moyiecomm.shopify.api.v1.orders.models.Order
+import com.moyiecomm.shopify.api.v1.shared.GetRequest
+import com.moyiecomm.shopify.request.ApiConfig
+//import Order.orderListDecoder
+//
+////todo to be test
+//case class GetOrderListOfCustomer(customerId: Long, status: Option[String], override val config: Config)
+//    extends GetRequest[List[Order]]()(orderListDecoder) {
+//  override val path: String = {
+//    s"/customers/$customerId/orders.json${status.map(s => s"?status=$s").getOrElse("")}"
+//  }
+//}

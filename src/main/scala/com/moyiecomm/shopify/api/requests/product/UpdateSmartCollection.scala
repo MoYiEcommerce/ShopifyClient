@@ -1,10 +1,10 @@
 package com.moyiecomm.shopify.api.requests.product
 
 import com.moyiecomm.shopify.api.builder.PutRequest
+import com.moyiecomm.shopify.api.builder.ShopifyRequest.Config
 import com.moyiecomm.shopify.api.json.product.SmartCollection
 import com.moyiecomm.shopify.api.json.product.SmartCollection.smartCollectionDecoder
 import com.moyiecomm.shopify.api.json.product.SmartCollection.smartCollectionEncoder
-import com.moyiecomm.shopify.api.builder.ShopifyRequest.Config
 import io.circe.Decoder
 import io.circe.Encoder
 

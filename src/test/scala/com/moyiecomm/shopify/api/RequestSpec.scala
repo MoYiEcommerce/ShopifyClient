@@ -1,14 +1,16 @@
 package com.moyiecomm.shopify.api
 
 import scala.concurrent.Future
+
 import com.github.tomakehurst.wiremock.client.MappingBuilder
 import com.moyiecomm.shopify.MockServer
 import com.moyiecomm.shopify.UnitSpec
 import com.moyiecomm.shopify.api.builder.ShopifyRequest
-import ShopifyRequest.Config
 import sttp.client3.SttpBackend
 import sttp.client3.asynchttpclient.future.AsyncHttpClientFutureBackend
 import sttp.model.StatusCode
+
+import ShopifyRequest.Config
 
 trait RequestSpec extends UnitSpec with MockServer {
   import RequestSpec.httpBackend
