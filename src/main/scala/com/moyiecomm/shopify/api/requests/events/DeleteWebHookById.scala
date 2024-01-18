@@ -1,0 +1,8 @@
+package com.moyiecomm.shopify.api.requests.events
+
+import com.moyiecomm.shopify.api.builder.DeleteRequest
+import com.moyiecomm.shopify.api.builder.ShopifyRequest.Config
+
+case class DeleteWebHookById(webHookId: Long, override val config: Config) extends DeleteRequest(config) {
+  override val path: String = s"webhooks/$webHookId.json"
+}
